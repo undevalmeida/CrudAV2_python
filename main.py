@@ -16,3 +16,7 @@ def menu(listOpcoes):
         cont += 1
 
 menu(["HOSPITAL", "MÉDICO", "PACIENTE"])
+
+# INTERAÇÃO COM USUÁRIO
+
+linha()
