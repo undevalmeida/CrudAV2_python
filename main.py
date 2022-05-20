@@ -24,9 +24,17 @@ opcao = int(input("DIGITE SUA ESCOLHA: "))
 
 if opcao == 1:
     cnpj = int(input("\033[1;34mNÚMERO DO CNPJ:\033[m "))
-    nome = input("\033[1;34mNOME DO HOSPITAL:\033[m ")
-    rua = input("\033[1;34mRUA:\033[m ")
-    bairro = input("\033[1;34mBAIRRO:\033[m ")
-    cidade = input("\033[1;34mCIDADE:\033[m ")
-    cep = input("\033[1;34mCEP:\033[m ")
+    nomeHospital = input("\033[1;34mNOME DO HOSPITAL:\033[m ")
+    ruaHospital = input("\033[1;34mRUA:\033[m ")
+    bairroHospital = input("\033[1;34mBAIRRO:\033[m ")
+    cidadeHospital = input("\033[1;34mCIDADE:\033[m ")
+    cepHospital = input("\033[1;34mCEP:\033[m ")
+elif opcao == 2:
+    crm = int(input("CRM: "))
+    cpfMedico = int(input("CPF: "))
+    nomeMedico = input("NOME: ")
+    ruaMedico = input("RUA: ")
+    bairroMedico = input("BAIRRO: ")
+    cidadeMedico = input("CIDADE: ")
+    cepMedico = input("CEP: ")
 
