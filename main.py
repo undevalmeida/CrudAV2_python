@@ -15,46 +15,49 @@ def menu(listOpcoes):
         print("\n")
         cont += 1
 
-menu(["HOSPITAL", "MÉDICO", "ENFERMEIRA"])
+menu(["HOSPITAL", "MÉDICO", "ENFERMEIRA", "SAIR"])
 
 # INTERAÇÃO COM USUÁRIO PARA CADASTRO DE HOSPITAL
 linha()
 
+def endereco():
+    global nome
+    nome = input("\033[1;34mNOME:\033[m ")
+    global rua
+    rua = input("\033[1;34mRUA:\033[m ")
+    global bairro
+    bairro = input("\033[1;34mBAIRRO:\033[m ")
+    global cidade
+    cidade = input("\033[1;34mCIDADE:\033[m ")
+    global cep
+    cep = input("\033[1;34mCEP:\033[m ")
 
 while True:
-    opcao = int(input("DIGITE SUA ESCOLHA: "))
     try:
-
+        opcao = int(input("DIGITE SUA ESCOLHA: "))
         if opcao == 1:
             cnpj = int(input("\033[1;34mNÚMERO DO CNPJ:\033[m "))
-            nomeHospital = input("\033[1;34mNOME DO HOSPITAL:\033[m ")
-            ruaHospital = input("\033[1;34mRUA:\033[m ")
-            bairroHospital = input("\033[1;34mBAIRRO:\033[m ")
-            cidadeHospital = input("\033[1;34mCIDADE:\033[m ")
-            cepHospital = input("\033[1;34mCEP:\033[m ")
+            endereco()
         elif opcao == 2:
             crm = int(input("CRM: "))
             cpfMedico = int(input("CPF: "))
-            nomeMedico = input("NOME: ")
-            ruaMedico = input("RUA: ")
-            bairroMedico = input("BAIRRO: ")
-            cidadeMedico = input("CIDADE: ")
-            cepMedico = input("CEP: ")
+            endereco()
         elif opcao == 3:
             coren = int(input("COREM: "))
             cpfEnfermeira = input("CPF: ")
-            nomeEnfermeira = input("NOME: ")
-            ruaEnfermeira = input("RUA: ")
-            bairroEnfermeira = input("BAIRRO: ")
-            cidadeEnfermeira = input("CIDADE: ")
+            endereco()
+        elif opcao == 4:
+            print("\n\033[1;31mSISTEMA ESTÁ SENDO ENCERRADO... ATÉ MAIS!\033[m\n")
+            linha()
+            break
         else:
             print("\n\033[31mERRO! OPÇÃO INVÁLIDA...\033[m\n")
             linha()
     except ValueError as erro:
         print(f"\n\033[31mVERIFIQUE O QUE FOI DIGITADO, ERRO: {erro}...\033[m")
-    sair = input("\nDESEJA CONTINUAR? (S)SIM OU (N)NÃO: ").upper
-    if sair == 'S': 
+    sair = input("\nDESEJA SAIR? (S)SIM OU (N)NÃO: ").upper
+    if sair == 'S':
+        print("\n\033[1;31mSISTEMA ESTÁ SENDO ENCERRADO... ATÉ MAIS!\033[m\n")
         break 
     else: 
-        menu(["HOSPITAL", "MÉDICO", "ENFERMEIRA"])
-
+        menu(["HOSPITAL", "MÉDICO", "ENFERMEIRA", "SAIR"])
