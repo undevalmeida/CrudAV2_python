@@ -55,9 +55,10 @@ while True:
             linha()
     except ValueError as erro:
         print(f"\n\033[31mVERIFIQUE O QUE FOI DIGITADO, ERRO: {erro}...\033[m")
-    sair = input("\nDESEJA SAIR? (S)SIM OU (N)NÃO: ").upper
+    
+    sair = input("\nDESEJA SAIR? (S)SIM OU (N)NÃO: ").upper()
     if sair == 'S':
         print("\n\033[1;31mSISTEMA ESTÁ SENDO ENCERRADO... ATÉ MAIS!\033[m\n")
-        break 
+        break
     else: 
         menu(["HOSPITAL", "MÉDICO", "ENFERMEIRA", "SAIR"])
