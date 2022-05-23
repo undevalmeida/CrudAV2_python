@@ -15,7 +15,7 @@ def menu(listOpcoes):
         print("\n")
         cont += 1
 
-menu(["HOSPITAL", "MÉDICO", "ENFERMEIRA", "SAIR"])
+menu(["HOSPITAL", "MÉDICO", "ENFERMEIRA","RELATÓRIO", "SAIR"])
 
 # INTERAÇÃO COM USUÁRIO PARA CADASTRO DE HOSPITAL
 linha()
@@ -47,6 +47,24 @@ while True:
             cpfEnfermeira = input("CPF: ")
             endereco()
         elif opcao == 4:
+            import sqlite3 as bancoDados
+            
+            bancoDados = bancoDados.connect("bancoDados.db")
+            cursor = bancoDados.cursor()
+            
+            select = """SELECT * FROM hospital"""
+            
+            cursor.execute(select)
+            listHospitais = cursor.fetchall()
+            if len(listHospitais) == 0:
+                print("\nLISTA VAZIA\n")
+                linha()
+            for i in listHospitais:
+                print(f"\nCNPJ: {i[0]}")
+                print(f"NOME: {i[1]}")
+                linha()
+
+        elif opcao == 5:
             print("\n\033[1;31mSISTEMA ESTÁ SENDO ENCERRADO... ATÉ MAIS!\033[m\n")
             linha()
             break
@@ -61,4 +79,4 @@ while True:
         print("\n\033[1;31mSISTEMA ESTÁ SENDO ENCERRADO... ATÉ MAIS!\033[m\n")
         break
     else: 
-        menu(["HOSPITAL", "MÉDICO", "ENFERMEIRA", "SAIR"])
+        menu(["HOSPITAL", "MÉDICO", "ENFERMEIRA", "RELATÓRIO", "SAIR"])
