@@ -14,6 +14,7 @@ def menu(listOpcoes):
         print(f"{cont} - \033[1;34m{item}\033[m", end="")
         print("\n")
         cont += 1
+    linha()
 
 menu(["HOSPITAL", "MÉDICO", "ENFERMEIRA","RELATÓRIO", "SAIR"])
 
@@ -39,30 +40,23 @@ while True:
             cnpj = int(input("\033[1;34mNÚMERO DO CNPJ:\033[m "))
             endereco()
         elif opcao == 2:
-            crm = int(input("CRM: "))
-            cpfMedico = int(input("CPF: "))
+            crm = int(input("\033[1;34mCRM:\033[m "))
+            cpfMedico = int(input("\033[1;34mCPF:\033[m "))
             endereco()
         elif opcao == 3:
-            coren = int(input("COREM: "))
-            cpfEnfermeira = input("CPF: ")
+            coren = int(input("\033[1;34mCOREM:\033[m "))
+            cpfEnfermeira = input("\033[1;34mCPF:\033[m ")
             endereco()
         elif opcao == 4:
-            import sqlite3 as bancoDados
-            
-            bancoDados = bancoDados.connect("bancoDados.db")
-            cursor = bancoDados.cursor()
-            
-            select = """SELECT * FROM hospital"""
-            
-            cursor.execute(select)
-            listHospitais = cursor.fetchall()
-            if len(listHospitais) == 0:
-                print("\nLISTA VAZIA\n")
-                linha()
-            for i in listHospitais:
-                print(f"\nCNPJ: {i[0]}")
-                print(f"NOME: {i[1]}")
-                linha()
+            cabecalho("RELATÓRIO")
+            menu(["HOSPITAIS", "MÉDICOS", "PACIENTES"])
+            opcao = int(input("DIGITE SUA ESCOLHA: "))
+            if opcao == 1:
+                menu(["TRATAMENTOS", "PACIENTES", "MÉDICOS", "ENFERMEIRAS"])
+            elif opcao == 2:
+                menu(["TELEFONE", "ESPECIALIDADE"])
+            elif opcao == 3:
+                print("A FAZER...")
 
         elif opcao == 5:
             print("\n\033[1;31mSISTEMA ESTÁ SENDO ENCERRADO... ATÉ MAIS!\033[m\n")
