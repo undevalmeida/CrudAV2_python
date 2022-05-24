@@ -8,7 +8,6 @@ def cabecalho(txt):
     linha()
 
 def menu(listOpcoes):
-    cabecalho("CADASTRO")
     cont = 1
     for item in listOpcoes:
         print(f"{cont} - \033[1;34m{item}\033[m", end="")
@@ -16,10 +15,10 @@ def menu(listOpcoes):
         cont += 1
     linha()
 
+cabecalho("CADASTRO")
 menu(["HOSPITAL", "MÉDICO", "ENFERMEIRA","RELATÓRIO", "SAIR"])
 
 # INTERAÇÃO COM USUÁRIO PARA CADASTRO DE HOSPITAL
-linha()
 
 def endereco():
     global nome
@@ -39,6 +38,28 @@ while True:
         if opcao == 1:
             cnpj = int(input("\033[1;34mNÚMERO DO CNPJ:\033[m "))
             endereco()
+            import sqlite3 as bancoDados
+            from modelo import hospital
+
+            bancoDados = bancoDados.connect("bancoDados.db")
+            cursor = bancoDados.cursor()
+
+            insertHospital = """INSERT INTO hospital(cnpj, nome, rua, bairro, cidade, cep)
+                                VALUES(:cnpj, :nome, :rua, :bairro, :cidade, :cep);"""
+            hospital = hospital(cnpj, nome, rua, bairro, cidade, cep)
+            cursor.execute(insertHospital, {"cnpj": hospital.cnpj,
+                                            "nome": hospital.nome,
+                                            "rua": hospital.rua,
+                                            "bairro": hospital.bairro,
+                                            "cidade": hospital.cidade,
+                                            "cep": hospital.cep})
+            
+            bancoDados.commit()
+            cursor.close()
+            bancoDados.close()
+
+            print("\n\033[32mCADASTRADO COM SUCESSO!\033[m")
+                                
         elif opcao == 2:
             crm = int(input("\033[1;34mCRM:\033[m "))
             cpfMedico = int(input("\033[1;34mCPF:\033[m "))
@@ -48,14 +69,17 @@ while True:
             cpfEnfermeira = input("\033[1;34mCPF:\033[m ")
             endereco()
         elif opcao == 4:
-            cabecalho("RELATÓRIO")
+            cabecalho("RELATÓRIOS")
             menu(["HOSPITAIS", "MÉDICOS", "PACIENTES"])
             opcao = int(input("DIGITE SUA ESCOLHA: "))
             if opcao == 1:
+                cabecalho("RELATÓRIOS")
                 menu(["TRATAMENTOS", "PACIENTES", "MÉDICOS", "ENFERMEIRAS"])
             elif opcao == 2:
-                menu(["TELEFONE", "ESPECIALIDADE"])
+                cabecalho("RELATÓRIOS")
+                menu(["TELEFONES", "ESPECIALIDADE"])
             elif opcao == 3:
+                cabecalho("RELATÓRIO")
                 print("A FAZER...")
 
         elif opcao == 5:
@@ -73,4 +97,5 @@ while True:
         print("\n\033[1;31mSISTEMA ESTÁ SENDO ENCERRADO... ATÉ MAIS!\033[m\n")
         break
     else: 
+        cabecalho("CADASTRO")
         menu(["HOSPITAL", "MÉDICO", "ENFERMEIRA", "RELATÓRIO", "SAIR"])

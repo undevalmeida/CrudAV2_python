@@ -13,7 +13,6 @@ try:
                     bairro VARCHAR(20) NOT NULL,
                     cidade VARCHAR(20) NOT NULL,
                     cep VARCHAR(8) NOT NULL,
-                    telefone VARCHAR(10),
                     PRIMARY KEY(cnpj)
                 );
                 CREATE TABLE medico(
