@@ -1,3 +1,10 @@
+import sqlite3 as bancoDados
+from modelo import hospital, medico
+
+
+bancoDados = bancoDados.connect("bancoDados.db")
+cursor = bancoDados.cursor()
+
 def linha(tam=42):
     print("_" * tam, end="")
     print("\n")
@@ -38,14 +45,10 @@ while True:
         if opcao == 1:
             cnpj = int(input("\033[1;34mNÚMERO DO CNPJ:\033[m "))
             endereco()
-            import sqlite3 as bancoDados
-            from modelo import hospital
-
-            bancoDados = bancoDados.connect("bancoDados.db")
-            cursor = bancoDados.cursor()
 
             insertHospital = """INSERT INTO hospital(cnpj, nome, rua, bairro, cidade, cep)
                                 VALUES(:cnpj, :nome, :rua, :bairro, :cidade, :cep);"""
+            
             hospital = hospital(cnpj, nome, rua, bairro, cidade, cep)
             cursor.execute(insertHospital, {"cnpj": hospital.cnpj,
                                             "nome": hospital.nome,
@@ -53,17 +56,26 @@ while True:
                                             "bairro": hospital.bairro,
                                             "cidade": hospital.cidade,
                                             "cep": hospital.cep})
-            
             bancoDados.commit()
-            cursor.close()
-            bancoDados.close()
-
             print("\n\033[32mCADASTRADO COM SUCESSO!\033[m")
                                 
         elif opcao == 2:
             crm = int(input("\033[1;34mCRM:\033[m "))
             cpfMedico = int(input("\033[1;34mCPF:\033[m "))
             endereco()
+            insertMedico = """INSERT INTO medico(crm, cpfMedico, nome, rua, bairro, cidade, cep)
+                            VALUES(:crm, :cpfMedico, :nome, :rua, :bairro, :cidade, :cep);"""
+            
+            medico = medico(crm, cpfMedico, nome, rua, bairro, cidade, cep)
+            cursor.execute(insertMedico, {"crm": medico.crm,
+                                        "cpfMedico": medico.cpfMedico,
+                                        "nome": medico.nome,
+                                        "rua": medico.rua,
+                                        "bairro": medico.bairro,
+                                        "cidade": medico.cidade,
+                                        "cep": medico.cep})
+            bancoDados.commit()
+            print("\n\033[32mCADASTRADO COM SUCESSO!\033[m")
         elif opcao == 3:
             coren = int(input("\033[1;34mCOREM:\033[m "))
             cpfEnfermeira = input("\033[1;34mCPF:\033[m ")
@@ -99,3 +111,6 @@ while True:
     else: 
         cabecalho("CADASTRO")
         menu(["HOSPITAL", "MÉDICO", "ENFERMEIRA", "RELATÓRIO", "SAIR"])
+
+cursor.close()
+bancoDados.close()

@@ -17,7 +17,7 @@ try:
                 );
                 CREATE TABLE medico(
                     crm VARCHAR(10) NOT NULL,
-                    cpf VARCHAR(11) NOT NULL,
+                    cpfMedico VARCHAR(11) NOT NULL,
                     nome VARCHAR(50) NOT NULL,
                     rua VARCHAR(50) NOT NULL,
                     bairro VARCHAR(20) NOT NULL,
@@ -45,7 +45,7 @@ try:
                 );
                 CREATE TABLE enfermeira(
                     coren VARCHAR(10),
-                    cpf VARCHAR(11),
+                    cpfEnfermeira VARCHAR(11),
                     nome VARCHAR(50),
                     rua VARCHAR(50),
                     bairro VARCHAR(20),
@@ -54,7 +54,7 @@ try:
                     PRIMARY KEY(coren)
                 );
                     CREATE TABLE paciente(
-                    cpf VARCHAR(11) NOT NULL,
+                    cpfPaciente VARCHAR(11) NOT NULL,
                     rg VARCHAR(10) NOT NULL,
                     nome VARCHAR(50) NOT NULL,
                     rua VARCHAR(50) NOT NULL,
