@@ -1,5 +1,5 @@
 import sqlite3 as bancoDados
-from modelo import hospital, medico
+from modelo import hospital, medico, enfermeira
 
 
 bancoDados = bancoDados.connect("bancoDados.db")
@@ -82,6 +82,18 @@ while True:
             coren = int(input("\033[1;34mCOREM:\033[m "))
             cpfEnfermeira = input("\033[1;34mCPF:\033[m ")
             endereco()
+
+            insertEnfermeira = """INSERT INTO enfermeira(coren, cpfEnfermeira, nome, rua, bairro, cidade, cep)
+                                VALUES(:coren, :cpfEnfermeira, :nome, :rua, :bairro, :cidade, :cep);"""
+            cursor.execute(insertEnfermeira, {"coren": enfermeira.coren,
+                                            "cpfEnfermeira": enfermeira.cpfEnfermeira,
+                                            "nome": enfermeira.nome,
+                                            "rua": enfermeira.rua,
+                                            "bairro": enfermeira.bairro,
+                                            "cidade": enfermeira.cidade,
+                                            "cep": enfermeira.cep})
+            enfermeira = enfermeira(coren, cpfEnfermeira, nome, rua, bairro, cidade, cep)
+            bancoDados.commit()
         elif opcao == 4:
             cabecalho("RELATÓRIOS")
             menu(["HOSPITAIS", "MÉDICOS", "PACIENTES"])
