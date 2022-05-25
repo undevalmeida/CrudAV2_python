@@ -62,13 +62,15 @@ while True:
         elif opcao == 2:
             crm = int(input("\033[1;34mCRM:\033[m "))
             cpfMedico = int(input("\033[1;34mCPF:\033[m "))
+            especialidade = input("\033[1;34mESPECIALIDADE:\033[m ")
             endereco()
-            insertMedico = """INSERT INTO medico(crm, cpfMedico, nome, rua, bairro, cidade, cep)
-                            VALUES(:crm, :cpfMedico, :nome, :rua, :bairro, :cidade, :cep);"""
+            insertMedico = """INSERT INTO medico(crm, cpfMedico, especialidade, nome, rua, bairro, cidade, cep)
+                            VALUES(:crm, :cpfMedico, :especialidade, :nome, :rua, :bairro, :cidade, :cep);"""
             
-            medico = medico(crm, cpfMedico, nome, rua, bairro, cidade, cep)
+            medico = medico(crm, cpfMedico, especialidade, nome, rua, bairro, cidade, cep)
             cursor.execute(insertMedico, {"crm": medico.crm,
                                         "cpfMedico": medico.cpfMedico,
+                                        "especialidade": medico.especialidade,
                                         "nome": medico.nome,
                                         "rua": medico.rua,
                                         "bairro": medico.bairro,
