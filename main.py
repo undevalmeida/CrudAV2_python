@@ -82,9 +82,11 @@ while True:
             coren = int(input("\033[1;34mCOREM:\033[m "))
             cpfEnfermeira = input("\033[1;34mCPF:\033[m ")
             endereco()
-
+            
             insertEnfermeira = """INSERT INTO enfermeira(coren, cpfEnfermeira, nome, rua, bairro, cidade, cep)
                                 VALUES(:coren, :cpfEnfermeira, :nome, :rua, :bairro, :cidade, :cep);"""
+            
+            enfermeira = enfermeira(coren, cpfEnfermeira, nome, rua, bairro, cidade, cep)
             cursor.execute(insertEnfermeira, {"coren": enfermeira.coren,
                                             "cpfEnfermeira": enfermeira.cpfEnfermeira,
                                             "nome": enfermeira.nome,
@@ -92,11 +94,12 @@ while True:
                                             "bairro": enfermeira.bairro,
                                             "cidade": enfermeira.cidade,
                                             "cep": enfermeira.cep})
-            enfermeira = enfermeira(coren, cpfEnfermeira, nome, rua, bairro, cidade, cep)
+            
             bancoDados.commit()
+            print("\n\033[32mCADASTRADO COM SUCESSO!\033[m")
         elif opcao == 4:
             cabecalho("RELATÓRIOS")
-            menu(["HOSPITAIS", "MÉDICOS", "PACIENTES"])
+            menu(["HOSPITAIS", "MÉDICOS", "PACIENTES", "TRATAMENTO"])
             opcao = int(input("DIGITE SUA ESCOLHA: "))
             if opcao == 1:
                 cabecalho("RELATÓRIOS")
