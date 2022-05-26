@@ -125,13 +125,14 @@ while True:
                 cursor.execute(relatorioMedico)
 
                 listaMedico = cursor.fetchall()
-                print(listaMedico)
+                
                 if len(listaMedico) == 0:
                     listaVazia = "LISTA VAZIA"
                     print(f"\033[35m{listaVazia.center(42)}\033[m")
                     linha()
-                
-
+                for lista in listaMedico:
+                    print(f"CRM: {lista[0]} \nCPF: {lista[1]} \nNOME: {lista[2]} \nCONTATO 1: {lista[9]} \nCONTATO 2: {lista[10]}")
+                    linha()
             elif opcao == 3:
                 cabecalho("RELATÓRIO")
                 print("A FAZER...")
