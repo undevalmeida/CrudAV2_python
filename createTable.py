@@ -30,7 +30,7 @@ try:
                     cod_tel INTEGER NOT NULL,
                     contato1 VARCHAR(10),
                     contato2 VARCHAR(10),
-                    crm VARCHAR(10) NOT NULL,
+                    crm VARCHAR(10),
                     PRIMARY KEY(cod_tel AUTOINCREMENT),
                     FOREIGN KEY(crm)
                         REFERENCES medico(crm)

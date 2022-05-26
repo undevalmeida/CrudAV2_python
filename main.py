@@ -39,6 +39,8 @@ def endereco():
     global cep
     cep = input("\033[1;34mCEP:\033[m ")
 
+listaVazia = "LISTA VAZIA"
+
 while True:
     try:
         opcao = int(input("DIGITE SUA ESCOLHA: "))
@@ -107,14 +109,28 @@ while True:
                 cursor.execute(relatorioHospitais)
                 
                 listaHospital = cursor.fetchall()
+                if len(listaHospital) == 0:
+                    print(f"\033[35m{listaVazia.center(42)}\033[m")
+                    linha()
+                    
                 for lista in listaHospital:
                     print(f"CNPJ: {lista[0]} \nNOME: {lista[1]} \nRUA: {lista[2]} \nBAIRRO: {lista[3]} \nCIDADE: {lista[4]} \nCEP: {lista[5]}")
                     linha()
 
             elif opcao == 2: #listar médicos e seus telefones
                 cabecalho("RELATÓRIOS")
-                relatorioMedico = """SELECT * FROM medico"""
-                print("A FAZER...")
+                relatorioMedico = """SELECT * FROM medico md
+                                    LEFT JOIN telefone tl
+                                    ON (md.crm = tl.crm)"""
+                cursor.execute(relatorioMedico)
+
+                listaMedico = cursor.fetchall()
+                print(listaMedico)
+                if len(listaMedico) == 0:
+                    listaVazia = "LISTA VAZIA"
+                    print(f"\033[35m{listaVazia.center(42)}\033[m")
+                    linha()
+                
 
             elif opcao == 3:
                 cabecalho("RELATÓRIO")
