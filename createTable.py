@@ -26,14 +26,6 @@ try:
                     especialidade TEXT NOT NULL,
                     PRIMARY KEY(crm)
                 );
-                CREATE TABLE especialidade(
-                    cod_esp INTEGER NOT NULL,
-                    especialidade TEXT NOT NULL,
-                    crm VARCHAR(10),
-                    PRIMARY KEY(cod_esp AUTOINCREMENT),
-                    FOREIGN KEY(crm)
-                        REFERENCES medico(crm)
-                );
                 CREATE TABLE telefone(
                     cod_tel INTEGER NOT NULL,
                     contato1 VARCHAR(10),
@@ -62,6 +54,12 @@ try:
                     cidade VARCHAR(20) NOT NULL,
                     cep VARCHAR(8) NOT NULL,
                     PRIMARY KEY(cpfPaciente)
+                );
+                    CREATE TABLE tratamento(
+                    cod_tratamento VARCHAR(4),
+                    crm VARCHAR(10),
+                    data TEXT NOT NULL,
+                    PRIMARY KEY(cod_tratamento)
                 );"""
 
     bancoDados.executescript(createTable)

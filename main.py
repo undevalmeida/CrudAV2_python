@@ -113,6 +113,8 @@ while True:
 
             elif opcao == 2: #listar médicos e seus telefones
                 cabecalho("RELATÓRIOS")
+                relatorioMedico = """SELECT * FROM medico"""
+                print("A FAZER...")
 
             elif opcao == 3:
                 cabecalho("RELATÓRIO")
