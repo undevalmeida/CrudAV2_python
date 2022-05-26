@@ -103,7 +103,14 @@ while True:
             opcao = int(input("DIGITE SUA ESCOLHA: "))
             if opcao == 1:
                 cabecalho("RELATÓRIOS")
-                menu(["TRATAMENTOS", "PACIENTES", "MÉDICOS", "ENFERMEIRAS"])
+                relatorioHospitais = """SELECT * FROM hospital"""
+                cursor.execute(relatorioHospitais)
+                
+                listaHospital = cursor.fetchall()
+                for lista in listaHospital:
+                    print(f"CNPJ: {lista[0]} \nNOME: {lista[1]} \nRUA: {lista[2]} \nBAIRRO: {lista[3]} \nCIDADE: {lista[4]} \nCEP: {lista[5]}")
+                    linha()
+
             elif opcao == 2:
                 cabecalho("RELATÓRIOS")
                 menu(["TELEFONES", "ESPECIALIDADE"])
