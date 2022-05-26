@@ -111,9 +111,9 @@ while True:
                     print(f"CNPJ: {lista[0]} \nNOME: {lista[1]} \nRUA: {lista[2]} \nBAIRRO: {lista[3]} \nCIDADE: {lista[4]} \nCEP: {lista[5]}")
                     linha()
 
-            elif opcao == 2:
+            elif opcao == 2: #listar médicos e seus telefones
                 cabecalho("RELATÓRIOS")
-                menu(["TELEFONES", "ESPECIALIDADE"])
+
             elif opcao == 3:
                 cabecalho("RELATÓRIO")
                 print("A FAZER...")

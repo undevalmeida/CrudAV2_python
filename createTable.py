@@ -62,12 +62,6 @@ try:
                     cidade VARCHAR(20) NOT NULL,
                     cep VARCHAR(8) NOT NULL,
                     PRIMARY KEY(cpfPaciente)
-                );
-                    CREATE TABLE tratamento(
-                    cod_tratamento VARCHAR(4),
-                    crm VARCHAR(10),
-                    data TEXT NOT NULL,
-                    PRIMARY KEY(cod_tratamento)
                 );"""
 
     bancoDados.executescript(createTable)
