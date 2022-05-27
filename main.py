@@ -88,14 +88,14 @@ while True:
             insertEnfermeira = """INSERT INTO enfermeira(coren, cpfEnfermeira, nome, rua, bairro, cidade, cep)
                                 VALUES(:coren, :cpfEnfermeira, :nome, :rua, :bairro, :cidade, :cep);"""
             
-            enfermeira = enfermeira(coren, cpfEnfermeira, nome, rua, bairro, cidade, cep)
-            cursor.execute(insertEnfermeira, {"coren": enfermeira.coren,
-                                            "cpfEnfermeira": enfermeira.cpfEnfermeira,
-                                            "nome": enfermeira.nome,
-                                            "rua": enfermeira.rua,
-                                            "bairro": enfermeira.bairro,
-                                            "cidade": enfermeira.cidade,
-                                            "cep": enfermeira.cep})
+            enfermei = enfermeira(coren, cpfEnfermeira, nome, rua, bairro, cidade, cep)
+            cursor.execute(insertEnfermeira, {"coren": enfermei.coren,
+                                            "cpfEnfermeira": enfermei.cpfEnfermeira,
+                                            "nome": enfermei.nome,
+                                            "rua": enfermei.rua,
+                                            "bairro": enfermei.bairro,
+                                            "cidade": enfermei.cidade,
+                                            "cep": enfermei.cep})
             
             bancoDados.commit()
             print("\n\033[32mCADASTRADO COM SUCESSO!\033[m")
