@@ -51,13 +51,13 @@ while True:
             insertHospital = """INSERT INTO hospital(cnpj, nome, rua, bairro, cidade, cep)
                                 VALUES(:cnpj, :nome, :rua, :bairro, :cidade, :cep);"""
             
-            hospital = hospital(cnpj, nome, rua, bairro, cidade, cep)
-            cursor.execute(insertHospital, {"cnpj": hospital.cnpj,
-                                            "nome": hospital.nome,
-                                            "rua": hospital.rua,
-                                            "bairro": hospital.bairro,
-                                            "cidade": hospital.cidade,
-                                            "cep": hospital.cep})
+            hosp = hospital(cnpj, nome, rua, bairro, cidade, cep)
+            cursor.execute(insertHospital, {"cnpj": hosp.cnpj,
+                                            "nome": hosp.nome,
+                                            "rua": hosp.rua,
+                                            "bairro": hosp.bairro,
+                                            "cidade": hosp.cidade,
+                                            "cep": hosp.cep})
             bancoDados.commit()
             print("\n\033[32mCADASTRADO COM SUCESSO!\033[m")
                                 
@@ -69,15 +69,15 @@ while True:
             insertMedico = """INSERT INTO medico(crm, cpfMedico, especialidade, nome, rua, bairro, cidade, cep)
                             VALUES(:crm, :cpfMedico, :especialidade, :nome, :rua, :bairro, :cidade, :cep);"""
             
-            medico = medico(crm, cpfMedico, especialidade, nome, rua, bairro, cidade, cep)
-            cursor.execute(insertMedico, {"crm": medico.crm,
-                                        "cpfMedico": medico.cpfMedico,
-                                        "especialidade": medico.especialidade,
-                                        "nome": medico.nome,
-                                        "rua": medico.rua,
-                                        "bairro": medico.bairro,
-                                        "cidade": medico.cidade,
-                                        "cep": medico.cep})
+            med = medico(crm, cpfMedico, especialidade, nome, rua, bairro, cidade, cep)
+            cursor.execute(insertMedico, {"crm": med.crm,
+                                        "cpfMedico": med.cpfMedico,
+                                        "especialidade": med.especialidade,
+                                        "nome": med.nome,
+                                        "rua": med.rua,
+                                        "bairro": med.bairro,
+                                        "cidade": med.cidade,
+                                        "cep": med.cep})
             bancoDados.commit()
             print("\n\033[32mCADASTRADO COM SUCESSO!\033[m")
         elif opcao == 3:
@@ -155,5 +155,5 @@ while True:
         cabecalho("CADASTRO")
         menu(["HOSPITAL", "MÉDICO", "ENFERMEIRA", "RELATÓRIO", "SAIR"])
 
-cursor.close()
-bancoDados.close()
+# cursor.close()
+# bancoDados.close()
