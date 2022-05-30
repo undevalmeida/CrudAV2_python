@@ -45,22 +45,24 @@ while True:
     try:
         opcao = int(input("DIGITE SUA ESCOLHA: "))
         if opcao == 1:
-            cnpj = int(input("\033[1;34mNÚMERO DO CNPJ:\033[m "))
-            endereco()
+            try:
+                cnpj = int(input("\033[1;34mNÚMERO DO CNPJ:\033[m "))
+                endereco()
 
-            insertHospital = """INSERT INTO hospital(cnpj, nome, rua, bairro, cidade, cep)
-                                VALUES(:cnpj, :nome, :rua, :bairro, :cidade, :cep);"""
-            
-            hosp = hospital(cnpj, nome, rua, bairro, cidade, cep)
-            cursor.execute(insertHospital, {"cnpj": hosp.cnpj,
-                                            "nome": hosp.nome,
-                                            "rua": hosp.rua,
-                                            "bairro": hosp.bairro,
-                                            "cidade": hosp.cidade,
-                                            "cep": hosp.cep})
-            bancoDados.commit()
-            print("\n\033[32mCADASTRADO COM SUCESSO!\033[m")
-                                
+                insertHospital = """INSERT INTO hospital(cnpj, nome, rua, bairro, cidade, cep)
+                                    VALUES(:cnpj, :nome, :rua, :bairro, :cidade, :cep);"""
+                
+                hosp = hospital(cnpj, nome, rua, bairro, cidade, cep)
+                cursor.execute(insertHospital, {"cnpj": hosp.cnpj,
+                                                "nome": hosp.nome,
+                                                "rua": hosp.rua,
+                                                "bairro": hosp.bairro,
+                                                "cidade": hosp.cidade,
+                                                "cep": hosp.cep})
+                bancoDados.commit()
+                print("\n\033[32mCADASTRADO COM SUCESSO!\033[m")
+            except:
+                print("\n\033[1;31mNÃO FOI POSSÍVEL ATRIBUIR, FAVOR, FAZER NOVAMENTE.\033[m")           
         elif opcao == 2:
             crm = int(input("\033[1;34mCRM:\033[m "))
             cpfMedico = int(input("\033[1;34mCPF:\033[m "))
