@@ -23,7 +23,7 @@ def menu(listOpcoes):
     linha()
 
 cabecalho("CADASTRO")
-menu(["HOSPITAL", "MÉDICO", "ENFERMEIRA", "PACIENTE","RELATÓRIO", "SAIR"])
+menu(["HOSPITAL", "MÉDICO", "ENFERMEIRA", "PACIENTE","\033[35mRELATÓRIO\033[m", "SAIR"])
 
 
 def endereco():
@@ -171,13 +171,15 @@ while True:
                     linha()
             elif opcao == 3:
                 cabecalho("RELATÓRIO")
-                relatorioPacientes = """SELECT * FROM pacientes"""
+                relatorioPaciente = """SELECT * FROM paciente"""
+                cursor.execute(relatorioPaciente)
                 listaPaciente = cursor.fetchall()
                 
                 if len(listaPaciente) == 0:
                     listaVazia()
                 for lista in listaPaciente:
-                    print(f"CPF: {lista[0]}")
+                    print(f"CPF: {lista[0]} \nRG: {lista[1]} \nNOME: {lista[2]} \nRUA: {lista[3]} \nBAIRRO: {lista[4]} \nCIDADE: {lista[5]} \nCEP: {lista[6]}")
+                    linha()
 
         elif opcao == 6:
             print("\n\033[1;31mSISTEMA ESTÁ SENDO ENCERRADO... ATÉ MAIS!\033[m\n")
