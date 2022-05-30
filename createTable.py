@@ -57,6 +57,7 @@ try:
                 );
                     CREATE TABLE tratamento(
                     cod_tratamento VARCHAR(4),
+                    nome VARCHAR(20),
                     crm VARCHAR(10),
                     PRIMARY KEY(cod_tratamento)
                     FOREIGN KEY(crm)

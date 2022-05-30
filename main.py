@@ -180,6 +180,17 @@ while True:
                 for lista in listaPaciente:
                     print(f"CPF: {lista[0]} \nRG: {lista[1]} \nNOME: {lista[2]} \nRUA: {lista[3]} \nBAIRRO: {lista[4]} \nCIDADE: {lista[5]} \nCEP: {lista[6]}")
                     linha()
+            elif opcao == 4:
+                cabecalho("RELATÓRIO")
+                relatorioPacienteTratamento = """SELECT * FROM tratamento"""
+                cursor.execute(relatorioPacienteTratamento)
+                listaPacienteTratamento = cursor.fetchall()
+                
+                if len(listaPacienteTratamento) == 0:
+                    listaVazia()
+                for lista in listaPacienteTratamento:
+                    print(f"CÓDIGO: {lista[0]} \nTRATAMENTO: {lista[1]} \nCRM DO MEDICO: {lista[2]}")
+                    linha()
 
         elif opcao == 6:
             print("\n\033[1;31mSISTEMA ESTÁ SENDO ENCERRADO... ATÉ MAIS!\033[m\n")
@@ -197,7 +208,7 @@ while True:
         break
     else: 
         cabecalho("CADASTRO")
-        menu(["HOSPITAL", "MÉDICO", "ENFERMEIRA", "PACIENTE", "RELATÓRIO", "SAIR"])
+        menu(["HOSPITAL", "MÉDICO", "ENFERMEIRA", "PACIENTE", "\033[35mRELATÓRIO\033[m", "SAIR"])
 
 # cursor.close()
 # bancoDados.close()
