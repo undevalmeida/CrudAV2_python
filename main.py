@@ -23,7 +23,7 @@ def menu(listOpcoes):
     linha()
 
 cabecalho("CADASTRO")
-menu(["HOSPITAL", "MÉDICO", "ENFERMEIRA","RELATÓRIO", "SAIR"])
+menu(["HOSPITAL", "MÉDICO", "ENFERMEIRA", "PACIENTE","RELATÓRIO", "SAIR"])
 
 
 def endereco():
@@ -42,6 +42,9 @@ def listaVazia():
     listaVazia = "LISTA VAZIA"
     print(f"\033[35m{listaVazia.center(42)}\033[m")
     linha()
+
+def cadastrado():
+    print("\n\033[32mCADASTRADO COM SUCESSO!\033[m")
 
 while True:
     try:
@@ -62,7 +65,7 @@ while True:
                                                 "cidade": hosp.cidade,
                                                 "cep": hosp.cep})
                 bancoDados.commit()
-                print("\n\033[32mCADASTRADO COM SUCESSO!\033[m")
+                cadastrado()
             except:
                 print("\n\033[1;31mNÃO FOI POSSÍVEL ATRIBUIR, POR FAVOR, FAZER NOVAMENTE.\033[m")           
         elif opcao == 2:
@@ -91,7 +94,7 @@ while True:
                                                     "contato2": telMed.contato2,
                                                     "crm": telMed.crm})
                 bancoDados.commit()
-                print("\n\033[32mCADASTRADO COM SUCESSO!\033[m")
+                cadastrado()
             except:
                 print("\n\033[1;31mNÃO FOI POSSÍVEl, POR FAVOR, FAZER NOVAMENTE.\033[m")
         elif opcao == 3:
@@ -113,10 +116,30 @@ while True:
                                                 "cep": enfermei.cep})
                 
                 bancoDados.commit()
-                print("\n\033[32mCADASTRADO COM SUCESSO!\033[m")
+                cadastrado()
             except:
                 print("\n\033[1;31mNÃO FOI POSSÍVEl, POR FAVOR, FAZER NOVAMENTE.\033[m")
         elif opcao == 4:
+            cpfPaciente = int(input("\033[1;34mCPF:\033[m "))
+            rg = int(input("\033[1;34mRG:\033[m "))
+            endereco()
+
+            insertPaciente = """INSERT INTO paciente(cpfPaciente, rg, nome, rua, bairro, cidade, cep)
+                                VALUES(:cpfPaciente, :rg, :nome, :rua, :bairro, :cidade, :cep);"""
+
+            pacien = paciente(cpfPaciente, rg, nome, rua, bairro, cidade, cep)
+            cursor.execute(insertPaciente, {"cpfPaciente": pacien.cpfPaciente,
+                                            "rg": pacien.rg,
+                                            "nome": pacien.nome,
+                                            "rua": pacien.rua,
+                                            "bairro": pacien.bairro,
+                                            "cidade": pacien.cidade,
+                                            "cep": pacien.cep})
+            
+            bancoDados.commit()
+            cadastrado()
+
+        elif opcao == 5:
             cabecalho("RELATÓRIOS")
             menu(["HOSPITAIS", "MÉDICOS", "PACIENTES", "TRATAMENTO"])
             opcao = int(input("DIGITE SUA ESCOLHA: "))
@@ -148,7 +171,7 @@ while True:
                     linha()
             elif opcao == 3:
                 cabecalho("RELATÓRIO")
-                relatorioPacientes = """SELECT * FROOM pacientes"""
+                relatorioPacientes = """SELECT * FROM pacientes"""
                 listaPaciente = cursor.fetchall()
                 
                 if len(listaPaciente) == 0:
@@ -156,7 +179,7 @@ while True:
                 for lista in listaPaciente:
                     print(f"CPF: {lista[0]}")
 
-        elif opcao == 5:
+        elif opcao == 6:
             print("\n\033[1;31mSISTEMA ESTÁ SENDO ENCERRADO... ATÉ MAIS!\033[m\n")
             linha()
             break
@@ -172,7 +195,7 @@ while True:
         break
     else: 
         cabecalho("CADASTRO")
-        menu(["HOSPITAL", "MÉDICO", "ENFERMEIRA", "RELATÓRIO", "SAIR"])
+        menu(["HOSPITAL", "MÉDICO", "ENFERMEIRA", "PACIENTE", "RELATÓRIO", "SAIR"])
 
 # cursor.close()
 # bancoDados.close()

@@ -30,3 +30,12 @@ class enfermeira:
         self.bairro = bairro
         self.cidade = cidade
         self.cep = cep
+class paciente:
+    def __init__(self, cpfPaciente, rg, nome, rua, bairro, cidade, cep):
+        self.cpfPaciente = cpfPaciente
+        self.rg = rg
+        self.nome = nome
+        self.rua = rua
+        self.bairro = bairro
+        self.cidade = cidade
+        self.cep = cep
