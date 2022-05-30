@@ -16,7 +16,7 @@ try:
                     PRIMARY KEY(cnpj)
                 );
                 CREATE TABLE medico(
-                    crm VARCHAR(10) NOT NULL,
+                    crm INTEGER NOT NULL,
                     cpfMedico VARCHAR(11) NOT NULL,
                     nome VARCHAR(50) NOT NULL,
                     rua VARCHAR(50) NOT NULL,
@@ -30,9 +30,9 @@ try:
                     cod_tel INTEGER NOT NULL,
                     contato1 VARCHAR(10),
                     contato2 VARCHAR(10),
-                    crm VARCHAR(10),
+                    crm INTEGER,
                     PRIMARY KEY(cod_tel AUTOINCREMENT),
-                    FOREIGN KEY(crm)
+                    FOREIGN KEY(crm) 
                         REFERENCES medico(crm)
                 );
                 CREATE TABLE enfermeira(
@@ -58,8 +58,9 @@ try:
                     CREATE TABLE tratamento(
                     cod_tratamento VARCHAR(4),
                     crm VARCHAR(10),
-                    data TEXT NOT NULL,
                     PRIMARY KEY(cod_tratamento)
+                    FOREIGN KEY(crm)
+                        REFERENCES medico(crm)
                 );"""
 
     bancoDados.executescript(createTable)

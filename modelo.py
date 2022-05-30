@@ -16,6 +16,11 @@ class medico:
         self.bairro = bairro
         self.cidade = cidade
         self.cep = cep
+class telefone:
+    def __init__(self, contato1, contato2, crm):
+        self.contato1 = contato1
+        self.contato2 = contato2
+        self.crm = crm
 class enfermeira:
     def __init__(self, coren, cpfEnfermeira, nome, rua, bairro, cidade, cep):
         self.coren = coren

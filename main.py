@@ -1,8 +1,8 @@
 import sqlite3 as bancoDados
-from modelo import hospital, medico, enfermeira
-
+from modelo import *
 
 bancoDados = bancoDados.connect("bancoDados.db")
+bancoDados.execute("PRAGMA foreign_keys = ON")
 cursor = bancoDados.cursor()
 
 def linha(tam=42):
@@ -25,7 +25,6 @@ def menu(listOpcoes):
 cabecalho("CADASTRO")
 menu(["HOSPITAL", "MÉDICO", "ENFERMEIRA","RELATÓRIO", "SAIR"])
 
-# INTERAÇÃO COM USUÁRIO PARA CADASTRO DE HOSPITAL
 
 def endereco():
     global nome
@@ -39,7 +38,10 @@ def endereco():
     global cep
     cep = input("\033[1;34mCEP:\033[m ")
 
-listaVazia = "LISTA VAZIA"
+def listaVazia():
+    listaVazia = "LISTA VAZIA"
+    print(f"\033[35m{listaVazia.center(42)}\033[m")
+    linha()
 
 while True:
     try:
@@ -62,45 +64,58 @@ while True:
                 bancoDados.commit()
                 print("\n\033[32mCADASTRADO COM SUCESSO!\033[m")
             except:
-                print("\n\033[1;31mNÃO FOI POSSÍVEL ATRIBUIR, FAVOR, FAZER NOVAMENTE.\033[m")           
+                print("\n\033[1;31mNÃO FOI POSSÍVEL ATRIBUIR, POR FAVOR, FAZER NOVAMENTE.\033[m")           
         elif opcao == 2:
-            crm = int(input("\033[1;34mCRM:\033[m "))
-            cpfMedico = int(input("\033[1;34mCPF:\033[m "))
-            especialidade = input("\033[1;34mESPECIALIDADE:\033[m ")
-            endereco()
-            insertMedico = """INSERT INTO medico(crm, cpfMedico, especialidade, nome, rua, bairro, cidade, cep)
-                            VALUES(:crm, :cpfMedico, :especialidade, :nome, :rua, :bairro, :cidade, :cep);"""
-            
-            med = medico(crm, cpfMedico, especialidade, nome, rua, bairro, cidade, cep)
-            cursor.execute(insertMedico, {"crm": med.crm,
-                                        "cpfMedico": med.cpfMedico,
-                                        "especialidade": med.especialidade,
-                                        "nome": med.nome,
-                                        "rua": med.rua,
-                                        "bairro": med.bairro,
-                                        "cidade": med.cidade,
-                                        "cep": med.cep})
-            bancoDados.commit()
-            print("\n\033[32mCADASTRADO COM SUCESSO!\033[m")
+            try:
+                crm = int(input("\033[1;34mCRM:\033[m "))
+                cpfMedico = int(input("\033[1;34mCPF:\033[m "))
+                especialidade = input("\033[1;34mESPECIALIDADE:\033[m ")
+                endereco()
+                contato1 = input("\033[1;34mCONTATO 1:\033[m ")
+                contato2 = input("\033[1;34mCONTATO 2:\033[m ")
+                insertMedico = """INSERT INTO medico(crm, cpfMedico, especialidade, nome, rua, bairro, cidade, cep)
+                                VALUES(:crm, :cpfMedico, :especialidade, :nome, :rua, :bairro, :cidade, :cep);"""
+                insertContatoMedico = """INSERT INTO telefone(contato1, contato2, crm)
+                                        VALUES(:contato1, :contato2, :crm);"""
+                telMed = telefone(contato1, contato2, crm)
+                med = medico(crm, cpfMedico, especialidade, nome, rua, bairro, cidade, cep)
+                cursor.execute(insertMedico, {"crm": med.crm,
+                                            "cpfMedico": med.cpfMedico,
+                                            "especialidade": med.especialidade,
+                                            "nome": med.nome,
+                                            "rua": med.rua,
+                                            "bairro": med.bairro,
+                                            "cidade": med.cidade,
+                                            "cep": med.cep})
+                cursor.execute(insertContatoMedico, {"contato1": telMed.contato1,
+                                                    "contato2": telMed.contato2,
+                                                    "crm": telMed.crm})
+                bancoDados.commit()
+                print("\n\033[32mCADASTRADO COM SUCESSO!\033[m")
+            except:
+                print("\n\033[1;31mNÃO FOI POSSÍVEl, POR FAVOR, FAZER NOVAMENTE.\033[m")
         elif opcao == 3:
-            coren = int(input("\033[1;34mCOREM:\033[m "))
-            cpfEnfermeira = input("\033[1;34mCPF:\033[m ")
-            endereco()
-            
-            insertEnfermeira = """INSERT INTO enfermeira(coren, cpfEnfermeira, nome, rua, bairro, cidade, cep)
-                                VALUES(:coren, :cpfEnfermeira, :nome, :rua, :bairro, :cidade, :cep);"""
-            
-            enfermei = enfermeira(coren, cpfEnfermeira, nome, rua, bairro, cidade, cep)
-            cursor.execute(insertEnfermeira, {"coren": enfermei.coren,
-                                            "cpfEnfermeira": enfermei.cpfEnfermeira,
-                                            "nome": enfermei.nome,
-                                            "rua": enfermei.rua,
-                                            "bairro": enfermei.bairro,
-                                            "cidade": enfermei.cidade,
-                                            "cep": enfermei.cep})
-            
-            bancoDados.commit()
-            print("\n\033[32mCADASTRADO COM SUCESSO!\033[m")
+            try:
+                coren = int(input("\033[1;34mCOREM:\033[m "))
+                cpfEnfermeira = input("\033[1;34mCPF:\033[m ")
+                endereco()
+                
+                insertEnfermeira = """INSERT INTO enfermeira(coren, cpfEnfermeira, nome, rua, bairro, cidade, cep)
+                                    VALUES(:coren, :cpfEnfermeira, :nome, :rua, :bairro, :cidade, :cep);"""
+                
+                enfermei = enfermeira(coren, cpfEnfermeira, nome, rua, bairro, cidade, cep)
+                cursor.execute(insertEnfermeira, {"coren": enfermei.coren,
+                                                "cpfEnfermeira": enfermei.cpfEnfermeira,
+                                                "nome": enfermei.nome,
+                                                "rua": enfermei.rua,
+                                                "bairro": enfermei.bairro,
+                                                "cidade": enfermei.cidade,
+                                                "cep": enfermei.cep})
+                
+                bancoDados.commit()
+                print("\n\033[32mCADASTRADO COM SUCESSO!\033[m")
+            except:
+                print("\n\033[1;31mNÃO FOI POSSÍVEl, POR FAVOR, FAZER NOVAMENTE.\033[m")
         elif opcao == 4:
             cabecalho("RELATÓRIOS")
             menu(["HOSPITAIS", "MÉDICOS", "PACIENTES", "TRATAMENTO"])
@@ -112,9 +127,7 @@ while True:
                 
                 listaHospital = cursor.fetchall()
                 if len(listaHospital) == 0:
-                    print(f"\033[35m{listaVazia.center(42)}\033[m")
-                    linha()
-                    
+                    listaVazia()
                 for lista in listaHospital:
                     print(f"CNPJ: {lista[0]} \nNOME: {lista[1]} \nRUA: {lista[2]} \nBAIRRO: {lista[3]} \nCIDADE: {lista[4]} \nCEP: {lista[5]}")
                     linha()
@@ -129,15 +142,19 @@ while True:
                 listaMedico = cursor.fetchall()
                 
                 if len(listaMedico) == 0:
-                    listaVazia = "LISTA VAZIA"
-                    print(f"\033[35m{listaVazia.center(42)}\033[m")
-                    linha()
+                    listaVazia()
                 for lista in listaMedico:
                     print(f"CRM: {lista[0]} \nCPF: {lista[1]} \nNOME: {lista[2]} \nCONTATO 1: {lista[9]} \nCONTATO 2: {lista[10]}")
                     linha()
             elif opcao == 3:
                 cabecalho("RELATÓRIO")
-                print("A FAZER...")
+                relatorioPacientes = """SELECT * FROOM pacientes"""
+                listaPaciente = cursor.fetchall()
+                
+                if len(listaPaciente) == 0:
+                    listaVazia()
+                for lista in listaPaciente:
+                    print(f"CPF: {lista[0]}")
 
         elif opcao == 5:
             print("\n\033[1;31mSISTEMA ESTÁ SENDO ENCERRADO... ATÉ MAIS!\033[m\n")
