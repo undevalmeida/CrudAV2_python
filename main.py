@@ -123,10 +123,13 @@ while True:
             cpfPaciente = int(input("\033[1;34mCPF:\033[m "))
             rg = int(input("\033[1;34mRG:\033[m "))
             endereco()
+            nomeTratamento = input("\033[1;34mTRATAMENTO:\033[m ")
 
             insertPaciente = """INSERT INTO paciente(cpfPaciente, rg, nome, rua, bairro, cidade, cep)
                                 VALUES(:cpfPaciente, :rg, :nome, :rua, :bairro, :cidade, :cep);"""
-
+            insertTratamento = """INSERT INTO tratamento(nomeTratamento)
+                                VALUES(:nomeTratamento)"""
+            
             pacien = paciente(cpfPaciente, rg, nome, rua, bairro, cidade, cep)
             cursor.execute(insertPaciente, {"cpfPaciente": pacien.cpfPaciente,
                                             "rg": pacien.rg,
@@ -135,7 +138,8 @@ while True:
                                             "bairro": pacien.bairro,
                                             "cidade": pacien.cidade,
                                             "cep": pacien.cep})
-            
+            tratament = tratamento(nomeTratamento)
+            cursor.execute(insertTratamento, {"nomeTratamento": tratament.nomeTratamento})
             bancoDados.commit()
             cadastrado()
 
@@ -191,7 +195,6 @@ while True:
                 for lista in listaPacienteTratamento:
                     print(f"CÓDIGO: {lista[0]} \nTRATAMENTO: {lista[1]} \nCRM DO MEDICO: {lista[2]}")
                     linha()
-
         elif opcao == 6:
             print("\n\033[1;31mSISTEMA ESTÁ SENDO ENCERRADO... ATÉ MAIS!\033[m\n")
             linha()

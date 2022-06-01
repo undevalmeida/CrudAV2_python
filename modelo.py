@@ -39,3 +39,6 @@ class paciente:
         self.bairro = bairro
         self.cidade = cidade
         self.cep = cep
+class tratamento:
+    def __init__(self, nomeTratamento):
+        self.nomeTratamento = nomeTratamento

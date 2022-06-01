@@ -56,10 +56,10 @@ try:
                     PRIMARY KEY(cpfPaciente)
                 );
                     CREATE TABLE tratamento(
-                    cod_tratamento VARCHAR(4),
-                    nome VARCHAR(20),
+                    cod_tratamento INTEGER NOT NULL,
+                    nomeTratamento VARCHAR(20),
                     crm VARCHAR(10),
-                    PRIMARY KEY(cod_tratamento)
+                    PRIMARY KEY(cod_tratamento AUTOINCREMENT),
                     FOREIGN KEY(crm)
                         REFERENCES medico(crm)
                 );"""
