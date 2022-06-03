@@ -124,11 +124,11 @@ while True:
             rg = int(input("\033[1;34mRG:\033[m "))
             endereco()
             nomeTratamento = input("\033[1;34mTRATAMENTO:\033[m ")
-
+            crmMedico = input("\033[1;34mCRM DO MÉDICO:\033[m ")
             insertPaciente = """INSERT INTO paciente(cpfPaciente, rg, nome, rua, bairro, cidade, cep)
                                 VALUES(:cpfPaciente, :rg, :nome, :rua, :bairro, :cidade, :cep);"""
-            insertTratamento = """INSERT INTO tratamento(nomeTratamento)
-                                VALUES(:nomeTratamento)"""
+            insertTratamento = """INSERT INTO tratamento(nomeTratamento, crm)
+                                VALUES(:nomeTratamento, :crm)"""
             
             pacien = paciente(cpfPaciente, rg, nome, rua, bairro, cidade, cep)
             cursor.execute(insertPaciente, {"cpfPaciente": pacien.cpfPaciente,
@@ -138,8 +138,9 @@ while True:
                                             "bairro": pacien.bairro,
                                             "cidade": pacien.cidade,
                                             "cep": pacien.cep})
-            tratament = tratamento(nomeTratamento)
-            cursor.execute(insertTratamento, {"nomeTratamento": tratament.nomeTratamento})
+            tratament = tratamento(nomeTratamento, crmMedico)
+            cursor.execute(insertTratamento, {"nomeTratamento": tratament.nomeTratamento,
+            "crm": tratament.crmMedico})
             bancoDados.commit()
             cadastrado()
 
@@ -171,7 +172,7 @@ while True:
                 if len(listaMedico) == 0:
                     listaVazia()
                 for lista in listaMedico:
-                    print(f"CRM: {lista[0]} \nCPF: {lista[1]} \nNOME: {lista[2]} \nCONTATO 1: {lista[9]} \nCONTATO 2: {lista[10]}")
+                    print(f"CRM: {lista[0]} \nCPF: {lista[1]} \nNOME: {lista[2]}  \nCONTATO 1: {lista[9]} \nCONTATO 2: {lista[10]} \nESPECILIDADE: {lista[7]}")
                     linha()
             elif opcao == 3:
                 cabecalho("RELATÓRIO")
