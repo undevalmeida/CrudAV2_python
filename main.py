@@ -162,7 +162,7 @@ while True:
             cadastrado()
         elif opcao == 5:
             cabecalho("ALTERAÇÃO")
-            menu(["HOSPITAIS", "MÉDICOS", "ENFERMEIRA", "PACIENTES", "TRATAMENTO"])
+            menu(["HOSPITAIS", "MÉDICOS", "ENFERMEIRA", "PACIENTES"])
             opcao = int(input("DIGITE SUA ESCOLHA: "))
             if opcao == 1:
                 cabecalho("ALTERAÇÃO")
@@ -351,7 +351,10 @@ while True:
                     alterado()
                 else:
                     print("\n\033[31mERRO! OPÇÃO INVÁLIDA...\033[m\n")
-                    linha()                 
+                    linha()
+            else:
+                print("\n\033[31mERRO! OPÇÃO INVÁLIDA...\033[m\n")
+                linha()
         elif opcao == 6:
             cabecalho("RELATÓRIOS")
             menu(["HOSPITAIS", "MÉDICOS", "PACIENTES", "TRATAMENTO"])
