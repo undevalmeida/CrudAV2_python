@@ -393,29 +393,26 @@ while True:
                 bancoDados.commit()
                 print("\n\033[1;32mDELETADO COM SUCESSO!\033[m")
                 linha()
-            elif opcao == 5:
-                deleteId = int(input("ID: "))
-                deleteHospitalMedico = """DELETE FROM hospitalMedico WHERE idHospMed= :idHospMed;"""
-                cursor.execute(deleteHospitalMedico, {"idHospMed": deleteId})
+            elif opcao == 5: #telefone
+                deleteId = int(input("COD: "))
+                deleteCod_tel = """DELETE FROM telefone WHERE cod_tel= :cod_tel;"""
+                cursor.execute(deleteCod_tel, {"cod_tel": deleteId})
                 bancoDados.commit()
                 print("\n\033[1;32mDELETADO COM SUCESSO!\033[m")
-                print("\n\033[1;32mAGORA SERÁ POSSÍVEL DELETAR O HOSPITAL\033[m")
                 linha()
-            elif opcao == 6:
-                deleteId = int(input("ID: "))
-                deleteHospitalMedico = """DELETE FROM hospitalMedico WHERE idHospMed= :idHospMed;"""
-                cursor.execute(deleteHospitalMedico, {"idHospMed": deleteId})
+            elif opcao == 6: #enfermeira
+                deleteCoren = int(input("COREN: "))
+                deleteEnfermeira = """DELETE FROM enfermeira WHERE coren= :coren;"""
+                cursor.execute(deleteEnfermeira, {"coren": deleteCoren})
                 bancoDados.commit()
                 print("\n\033[1;32mDELETADO COM SUCESSO!\033[m")
-                print("\n\033[1;32mAGORA SERÁ POSSÍVEL DELETAR O HOSPITAL\033[m")
                 linha()
-            elif opcao == 7:
-                deleteId = int(input("ID: "))
-                deleteHospitalMedico = """DELETE FROM hospitalMedico WHERE idHospMed= :idHospMed;"""
-                cursor.execute(deleteHospitalMedico, {"idHospMed": deleteId})
+            elif opcao == 7: #paciente
+                deleteCpf = int(input("CPF: "))
+                deletePaciente = """DELETE FROM paciente WHERE cpfPaciente= :cpfPaciente;"""
+                cursor.execute(deletePaciente, {"cpfPaciente": deleteCpf})
                 bancoDados.commit()
                 print("\n\033[1;32mDELETADO COM SUCESSO!\033[m")
-                print("\n\033[1;32mAGORA SERÁ POSSÍVEL DELETAR O HOSPITAL\033[m")
                 linha()
         elif opcao == 7: #SELECT
             cabecalho("RELATÓRIOS")
