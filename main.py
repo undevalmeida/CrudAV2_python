@@ -1,4 +1,3 @@
-from msilib.schema import Error
 import sqlite3 as bancoDados
 from modelo import *
 
@@ -53,7 +52,7 @@ def alterado():
 while True:
     try:
         opcao = int(input("DIGITE SUA ESCOLHA: "))
-        if opcao == 1:
+        if opcao == 1: #INSERT
             try:
                 cnpj = int(input("\033[1;34mNÚMERO DO CNPJ:\033[m "))
                 endereco()
@@ -144,8 +143,8 @@ while True:
             crmMedico = input("\033[1;34mCRM DO MÉDICO:\033[m ")
             insertPaciente = """INSERT INTO paciente(cpfPaciente, rg, nome, rua, bairro, cidade, cep)
                                 VALUES(:cpfPaciente, :rg, :nome, :rua, :bairro, :cidade, :cep);"""
-            insertTratamento = """INSERT INTO tratamento(nomeTratamento, crm)
-                                VALUES(:nomeTratamento, :crm)"""
+            insertTratamento = """INSERT INTO tratamento(nomeTratamento)
+                                VALUES(:nomeTratamento)"""
             
             pacien = paciente(cpfPaciente, rg, nome, rua, bairro, cidade, cep)
             cursor.execute(insertPaciente, {"cpfPaciente": pacien.cpfPaciente,
@@ -155,12 +154,11 @@ while True:
                                             "bairro": pacien.bairro,
                                             "cidade": pacien.cidade,
                                             "cep": pacien.cep})
-            tratament = tratamento(nomeTratamento, crmMedico)
-            cursor.execute(insertTratamento, {"nomeTratamento": tratament.nomeTratamento,
-            "crm": tratament.crmMedico})
+            tratament = tratamento(nomeTratamento)
+            cursor.execute(insertTratamento, {"nomeTratamento": tratament.nomeTratamento})
             bancoDados.commit()
             cadastrado()
-        elif opcao == 5:
+        elif opcao == 5: #UPDATE
             cabecalho("ALTERAÇÃO")
             menu(["HOSPITAIS", "MÉDICOS", "ENFERMEIRA", "PACIENTES"])
             opcao = int(input("DIGITE SUA ESCOLHA: "))
@@ -305,7 +303,7 @@ while True:
                 else:
                     print("\n\033[31mERRO! OPÇÃO INVÁLIDA...\033[m\n")
                     linha()   
-            elif opcao == 4:
+            elif opcao == 4: 
                 cabecalho("ALTERAÇÃO")
                 menu(["NOME", "RUA", "BAIRRO", "CIDADE", "CEP"])
                 opcao = int(input("DIGITE SUA ESCOLHA: "))
@@ -355,10 +353,71 @@ while True:
             else:
                 print("\n\033[31mERRO! OPÇÃO INVÁLIDA...\033[m\n")
                 linha()
-        elif opcao == 6:
+        elif opcao == 6: #DELETE
             cabecalho("DELETAR")
-            menu([""])
-        elif opcao == 7:
+            menu(["HOSPITAL", "HOISPITAL/MEDICO", "MEDICO", "ESPECIALIDADE", "TELEFONE", "ENFERMEIRA", "PACIENTE"])
+            opcao = int(input("DIGITE SUA ESCOLHA: "))
+            if opcao == 1: #hospital
+                try:
+                    deleteCnpj = int(input("CNPJ PARA EXCLUIR: "))
+                    deleteHospital = """DELETE FROM hospital WHERE cnpj= :cnpj;"""
+                    cursor.execute(deleteHospital, {"cnpj": deleteCnpj})
+                    bancoDados.commit()
+                    print("\n\033[1;32mDELETADO COM SUCESSO!\033[m")
+                    
+                    linha()
+                except bancoDados.IntegrityError as erro:
+                    print(f"\n\033[31mNÃO FOI POSSÍVEL EXCLUIR, EXISTE UMA TABELA VINCULADA. TABELA HOSPITAL/MEDICO ERRO {erro}.\033[m")
+            elif opcao == 2: #hospital/medico
+                deleteId = int(input("ID: "))
+                deleteHospitalMedico = """DELETE FROM hospitalMedico WHERE idHospMed= :idHospMed;"""
+                cursor.execute(deleteHospitalMedico, {"idHospMed": deleteId})
+                bancoDados.commit()
+                print("\n\033[1;32mDELETADO COM SUCESSO!\033[m")
+                print("\n\033[1;32mAGORA SERÁ POSSÍVEL DELETAR O HOSPITAL\033[m")
+                linha()
+            elif opcao == 3: #medico
+                try:
+                    deleteCrm = int(input("CRM: "))
+                    deleteMedico = """DELETE FROM medico WHERE crm= :crm;"""
+                    cursor.execute(deleteMedico, {"crm": deleteCrm})
+                    bancoDados.commit()
+                    print("\n\033[1;32mDELETADO COM SUCESSO!\033[m")
+                    linha()
+                except bancoDados.IntegrityError as erro:
+                    print(f"\n\033[31mNÃO FOI POSSÍVEL EXCLUIR, EXISTE UMA TABELA VINCULADA. TABELA HOSPITAL/MEDICO, ESPECIALIDADE, TELEFONE. DELETE TODAS ANTES DE TENTAR NOVAMENTE. ERRO {erro}.\033[m")
+            elif opcao == 4: #especialidade
+                deleteId = int(input("ID: "))
+                deleteEspecialidade = """DELETE FROM especialidade WHERE idEspecialidade= :idEspecialidade;"""
+                cursor.execute(deleteEspecialidade, {"idEspecialidade": deleteId})
+                bancoDados.commit()
+                print("\n\033[1;32mDELETADO COM SUCESSO!\033[m")
+                linha()
+            elif opcao == 5:
+                deleteId = int(input("ID: "))
+                deleteHospitalMedico = """DELETE FROM hospitalMedico WHERE idHospMed= :idHospMed;"""
+                cursor.execute(deleteHospitalMedico, {"idHospMed": deleteId})
+                bancoDados.commit()
+                print("\n\033[1;32mDELETADO COM SUCESSO!\033[m")
+                print("\n\033[1;32mAGORA SERÁ POSSÍVEL DELETAR O HOSPITAL\033[m")
+                linha()
+            elif opcao == 6:
+                deleteId = int(input("ID: "))
+                deleteHospitalMedico = """DELETE FROM hospitalMedico WHERE idHospMed= :idHospMed;"""
+                cursor.execute(deleteHospitalMedico, {"idHospMed": deleteId})
+                bancoDados.commit()
+                print("\n\033[1;32mDELETADO COM SUCESSO!\033[m")
+                print("\n\033[1;32mAGORA SERÁ POSSÍVEL DELETAR O HOSPITAL\033[m")
+                linha()
+            elif opcao == 7:
+                deleteId = int(input("ID: "))
+                deleteHospitalMedico = """DELETE FROM hospitalMedico WHERE idHospMed= :idHospMed;"""
+                cursor.execute(deleteHospitalMedico, {"idHospMed": deleteId})
+                bancoDados.commit()
+                print("\n\033[1;32mDELETADO COM SUCESSO!\033[m")
+                print("\n\033[1;32mAGORA SERÁ POSSÍVEL DELETAR O HOSPITAL\033[m")
+                linha()
+        elif opcao == 7: #SELECT
             cabecalho("RELATÓRIOS")
             menu(["HOSPITAIS", "MÉDICOS", "PACIENTES", "TRATAMENTO"])
             opcao = int(input("DIGITE SUA ESCOLHA: "))

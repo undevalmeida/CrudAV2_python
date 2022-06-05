@@ -39,9 +39,8 @@ class paciente:
         self.cidade = cidade
         self.cep = cep
 class tratamento:
-    def __init__(self, nomeTratamento, crmMedico):
+    def __init__(self, nomeTratamento):
         self.nomeTratamento = nomeTratamento
-        self.crmMedico = crmMedico
 class hospitalMedico:
     def __init__(self, cnpj, crm):
         self.cnpj = cnpj

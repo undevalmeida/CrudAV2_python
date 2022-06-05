@@ -65,10 +65,7 @@ try:
                 CREATE TABLE tratamento(
                     cod_tratamento INTEGER NOT NULL,
                     nomeTratamento VARCHAR(20),
-                    crm VARCHAR(10),
-                    PRIMARY KEY(cod_tratamento AUTOINCREMENT),
-                    FOREIGN KEY(crm)
-                        REFERENCES medico(crm)
+                    PRIMARY KEY(cod_tratamento AUTOINCREMENT)
                 );
                 CREATE TABLE hospitalMedico(
                     idHospMed INTEGER NOT NULL,
