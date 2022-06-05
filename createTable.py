@@ -62,6 +62,16 @@ try:
                     PRIMARY KEY(cod_tratamento AUTOINCREMENT),
                     FOREIGN KEY(crm)
                         REFERENCES medico(crm)
+                );
+                    CREATE TABLE hospitalMedico(
+                    idHospMed INTEGER NOT NULL,
+                    cnpj VARCHAR(11) NOT NULL,
+                    medico_crm INTEGER NOT NULL,
+                    PRIMARY KEY(idHospMed AUTOINCREMENT),
+                    FOREIGN KEY(cnpj)
+                        REFERENCES hospital(cnpj),
+                    FOREIGN KEY(medico_crm) 
+                        REFERENCES medico(crm)
                 );"""
 
     bancoDados.executescript(createTable)

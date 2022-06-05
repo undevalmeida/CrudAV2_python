@@ -43,3 +43,7 @@ class tratamento:
     def __init__(self, nomeTratamento, crmMedico):
         self.nomeTratamento = nomeTratamento
         self.crmMedico = crmMedico
+class hospitalMedico:
+    def __init__(self, cnpj, crm):
+        self.cnpj = cnpj
+        self.crm = crm

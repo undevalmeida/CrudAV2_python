@@ -1,3 +1,4 @@
+from msilib.schema import Error
 import sqlite3 as bancoDados
 from modelo import *
 
@@ -46,6 +47,7 @@ def listaVazia():
 def cadastrado():
     print("\n\033[32mCADASTRADO COM SUCESSO!\033[m")
 
+
 while True:
     try:
         opcao = int(input("DIGITE SUA ESCOLHA: "))
@@ -76,12 +78,19 @@ while True:
                 endereco()
                 contato1 = input("\033[1;34mCONTATO 1:\033[m ")
                 contato2 = input("\033[1;34mCONTATO 2:\033[m ")
+
+                cnpj = int(input("\033[1;34mCNPJ 1º hospital:\033[m"))
+                
                 insertMedico = """INSERT INTO medico(crm, cpfMedico, especialidade, nome, rua, bairro, cidade, cep)
                                 VALUES(:crm, :cpfMedico, :especialidade, :nome, :rua, :bairro, :cidade, :cep);"""
                 insertContatoMedico = """INSERT INTO telefone(contato1, contato2, crm)
                                         VALUES(:contato1, :contato2, :crm);"""
-                telMed = telefone(contato1, contato2, crm)
+                insertHospMed = """INSERT INTO hospitalMedico(cnpj, medico_crm)
+                                VALUES(:cnpj, :medico_crm);"""
+                
                 med = medico(crm, cpfMedico, especialidade, nome, rua, bairro, cidade, cep)
+                telMed = telefone(contato1, contato2, crm)
+                hospMed = hospitalMedico(cnpj, crm)
                 cursor.execute(insertMedico, {"crm": med.crm,
                                             "cpfMedico": med.cpfMedico,
                                             "especialidade": med.especialidade,
@@ -93,10 +102,12 @@ while True:
                 cursor.execute(insertContatoMedico, {"contato1": telMed.contato1,
                                                     "contato2": telMed.contato2,
                                                     "crm": telMed.crm})
+                cursor.execute(insertHospMed, {"cnpj": hospMed.cnpj,
+                                            "medico_crm": hospMed.crm})
                 bancoDados.commit()
                 cadastrado()
-            except:
-                print("\n\033[1;31mNÃO FOI POSSÍVEl, POR FAVOR, FAZER NOVAMENTE.\033[m")
+            except Error as erro:
+                print(f"\n\033[1;31mNÃO FOI POSSÍVEl, POR FAVOR, FAZER NOVAMENTE. ERRO: {erro}\033[m")
         elif opcao == 3:
             try:
                 coren = int(input("\033[1;34mCOREM:\033[m "))
