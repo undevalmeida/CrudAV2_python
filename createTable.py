@@ -1,5 +1,4 @@
 import sqlite3 as bancoDados
-
 #  CRIANDO CAMINHO PARA O BANCO E PRAGMA SERVE PARA ATIVAR A FK(CHAVE ESTRANGEIRA)
 bancoDados = bancoDados.connect("bancoDados.db")
 bancoDados.execute("PRAGMA foreign_keys=on")

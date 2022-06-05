@@ -1,9 +1,88 @@
 import sqlite3 as bancoDados
 from modelo import *
-
+#  CRIANDO CAMINHO PARA O BANCO E PRAGMA SERVE PARA ATIVAR A FK(CHAVE ESTRANGEIRA)
 bancoDados = bancoDados.connect("bancoDados.db")
-bancoDados.execute("PRAGMA foreign_keys = ON")
+bancoDados.execute("PRAGMA foreign_keys=on")
 cursor = bancoDados.cursor()
+
+try:
+    createTable = """CREATE TABLE IF NOT EXISTS hospital(
+                    cnpj VARCHAR(11) NOT NULL,
+                    nome VARCHAR(20) NOT NULL,
+                    rua VARCHAR(50) NOT NULL,
+                    bairro VARCHAR(20) NOT NULL,
+                    cidade VARCHAR(20) NOT NULL,
+                    cep VARCHAR(8) NOT NULL,
+                    PRIMARY KEY(cnpj)
+                );
+                CREATE TABLE medico(
+                    crm INTEGER NOT NULL,
+                    cpfMedico VARCHAR(11) NOT NULL,
+                    nome VARCHAR(50) NOT NULL,
+                    rua VARCHAR(50) NOT NULL,
+                    bairro VARCHAR(20) NOT NULL,
+                    cidade VARCHAR(20),
+                    cep VARCHAR(8) NOT NULL,
+                    PRIMARY KEY(crm)
+                );
+                CREATE TABLE telefone(
+                    cod_tel INTEGER NOT NULL,
+                    contato1 VARCHAR(10),
+                    contato2 VARCHAR(10),
+                    crm INTEGER,
+                    PRIMARY KEY(cod_tel AUTOINCREMENT),
+                    FOREIGN KEY(crm) 
+                        REFERENCES medico(crm)
+                );
+                CREATE TABLE enfermeira(
+                    coren VARCHAR(10),
+                    cpfEnfermeira VARCHAR(11),
+                    nome VARCHAR(50),
+                    rua VARCHAR(50),
+                    bairro VARCHAR(20),
+                    cidade VARCHAR(20),
+                    cep VARCHAR(8),
+                    PRIMARY KEY(coren)
+                );
+                CREATE TABLE paciente(
+                    cpfPaciente VARCHAR(11) NOT NULL,
+                    rg VARCHAR(10) NOT NULL,
+                    nome VARCHAR(50) NOT NULL,
+                    rua VARCHAR(50) NOT NULL,
+                    bairro VARCHAR(20) NOT NULL,
+                    cidade VARCHAR(20) NOT NULL,
+                    cep VARCHAR(8) NOT NULL,
+                    PRIMARY KEY(cpfPaciente)
+                );
+                CREATE TABLE especialidade(
+                    idEspecialidade INTEGER NOT NULL,
+                    especialidade TEXT NOT NULL,
+                    medico_crm INTEGER NOT NULL,
+                    PRIMARY KEY(idEspecialidade AUTOINCREMENT),
+                    FOREIGN KEY(medico_crm)
+                        REFERENCES medico(crm)
+                );
+                CREATE TABLE tratamento(
+                    cod_tratamento INTEGER NOT NULL,
+                    nomeTratamento VARCHAR(20),
+                    PRIMARY KEY(cod_tratamento AUTOINCREMENT)
+                );
+                CREATE TABLE hospitalMedico(
+                    idHospMed INTEGER NOT NULL,
+                    cnpj VARCHAR(11) NOT NULL,
+                    medico_crm INTEGER NOT NULL,
+                    PRIMARY KEY(idHospMed AUTOINCREMENT),
+                    FOREIGN KEY(cnpj)
+                        REFERENCES hospital(cnpj),
+                    FOREIGN KEY(medico_crm) 
+                        REFERENCES medico(crm)
+                );"""
+
+    bancoDados.executescript(createTable)
+    bancoDados.commit()
+    print("\n\033[1;32mTABELAS FORAM CRIADAS COM SUCESSO\033[m\n")
+except bancoDados.DatabaseError or bancoDados.OperationalError as erro:
+    print(f"\n\033[1;31mERRO AO CRIAR TABELAS. ERRO:{erro}\033[m\n")
 
 def linha(tam=42):
     print("_" * tam, end="")
@@ -24,7 +103,6 @@ def menu(listOpcoes):
 
 cabecalho("CADASTRO")
 menu(["HOSPITAL", "MÉDICO", "ENFERMEIRA", "PACIENTE", "ALTERAR", "\033[31mDELETAR\033[m", "\033[35mRELATÓRIO\033[m", "SAIR"])
-
 
 def endereco():
     global nome
@@ -466,7 +544,7 @@ while True:
                 if len(listaPacienteTratamento) == 0:
                     listaVazia()
                 for lista in listaPacienteTratamento:
-                    print(f"CÓDIGO: {lista[0]} \nTRATAMENTO: {lista[1]} \nCRM DO MEDICO: {lista[2]}")
+                    print(f"CÓDIGO: {lista[0]} \nTRATAMENTO: {lista[1]}")
                     linha()
         elif opcao == 8:
             print("\n\033[1;31mSISTEMA ESTÁ SENDO ENCERRADO... ATÉ MAIS!\033[m\n")
