@@ -80,7 +80,7 @@ while True:
                 contato1 = input("\033[1;34mCONTATO 1:\033[m ")
                 contato2 = input("\033[1;34mCONTATO 2:\033[m ")
 
-                cnpj = int(input("\033[1;34mCNPJ 1º hospital:\033[m "))
+                cnpj = int(input("\033[1;34mCNPJ DO HOSPITAL QUE TRABALHA:\033[m "))
                 
                 insertMedico = """INSERT INTO medico(crm, cpfMedico, nome, rua, bairro, cidade, cep)
                                 VALUES(:crm, :cpfMedico, :nome, :rua, :bairro, :cidade, :cep);"""
@@ -486,5 +486,5 @@ while True:
         cabecalho("CADASTRO")
         menu(["HOSPITAL", "MÉDICO", "ENFERMEIRA", "PACIENTE", "ALTERAR", "\033[31mDELETAR\033[m", "\033[35mRELATÓRIO\033[m", "SAIR"])
 
-# cursor.close()
-# bancoDados.close()
+cursor.close()
+bancoDados.close()
