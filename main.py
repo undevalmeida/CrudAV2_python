@@ -88,7 +88,7 @@ while True:
                 insertHospMed = """INSERT INTO hospitalMedico(cnpj, medico_crm)
                                 VALUES(:cnpj, :medico_crm);"""
                 insertEspecilidade = """INSERT INTO especialidade(especialidade, medico_crm)
-                                    VALUES(:especialidade, :medico_crm"""!
+                                    VALUES(:especialidade, :medico_crm);"""
                 
                 med = medico(crm, cpfMedico, especialidade, nome, rua, bairro, cidade, cep)
                 telMed = telefone(contato1, contato2, crm)
@@ -107,6 +107,8 @@ while True:
                                                     "crm": telMed.crm})
                 cursor.execute(insertHospMed, {"cnpj": hospMed.cnpj,
                                             "medico_crm": hospMed.crm})
+                cursor.execute(insertEspecilidade, {"especialidade": espec.especialidade,
+                                                    "medico_crm": espec.crm})
                 bancoDados.commit()
                 cadastrado()
             except:
