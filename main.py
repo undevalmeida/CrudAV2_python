@@ -47,7 +47,9 @@ def listaVazia():
 def cadastrado():
     print("\n\033[32mCADASTRADO COM SUCESSO!\033[m")
 
-
+def alterado():
+    print("\n\033[1;32mALTERADO COM SUCESSO!\033[m")
+    linha()
 while True:
     try:
         opcao = int(input("DIGITE SUA ESCOLHA: "))
@@ -79,7 +81,7 @@ while True:
                 contato1 = input("\033[1;34mCONTATO 1:\033[m ")
                 contato2 = input("\033[1;34mCONTATO 2:\033[m ")
 
-                cnpj = int(input("\033[1;34mCNPJ 1º hospital:\033[m"))
+                cnpj = int(input("\033[1;34mCNPJ 1º hospital:\033[m "))
                 
                 insertMedico = """INSERT INTO medico(crm, cpfMedico, nome, rua, bairro, cidade, cep)
                                 VALUES(:crm, :cpfMedico, :nome, :rua, :bairro, :cidade, :cep);"""
@@ -162,7 +164,100 @@ while True:
             cabecalho("ALTERAÇÃO")
             menu(["HOSPITAIS", "MÉDICOS", "PACIENTES", "TRATAMENTO"])
             opcao = int(input("DIGITE SUA ESCOLHA: "))
-            print("A fazer")
+            if opcao == 1:
+                cabecalho("ALTERAÇÃO")
+                menu(["NOME", "RUA", "BAIRRO", "CIDADE", "CEP"])
+                opcao = int(input("DIGITE SUA ESCOLHA: "))
+                if opcao == 1:
+                    alterarNome = input("\033[1;34mNOME:\033[m ")
+                    alterarCnpj = int(input("\033[34mCNPJ:\033[m"))
+                    update = """UPDATE hospital SET nome= :nome WHERE cnpj= :cnpj;"""
+                    cursor.execute(update, {"nome": alterarNome,
+                                            "cnpj": alterarCnpj})
+                    bancoDados.commit()
+                    alterado()
+                elif opcao == 2:
+                    alterarRua = input("\033[1;34mRUA:\033[m ")
+                    alterarCnpj = int(input("\033[34mCNPJ:\033[m "))
+                    update = """UPDATE hospital SET rua= :rua WHERE cnpj= :cnpj;"""
+                    cursor.execute(update, {"rua": alterarRua,
+                                            "cnpj": alterarCnpj})
+                    bancoDados.commit()
+                    alterado()
+                elif opcao == 3:
+                    alterarBairro = input("\033[1;34mBAIRRO:\033[m ")
+                    alterarCnpj = int(input("\033[34mCNPJ:\033[m "))
+                    update = """UPDATE hospital SET bairro= :bairro WHERE cnpj= :cnpj;"""
+                    cursor.execute(update, {"bairro": alterarBairro,
+                                            "cnpj": alterarCnpj})
+                    bancoDados.commit()
+                    alterado()
+                elif opcao == 4:
+                    alterarCidade = input("\033[1;34mCIDADE:\033[m ")
+                    alterarCnpj = int(input("\033[34mCNPJ:\033[m "))
+                    update = """UPDATE hospital SET cidade= :cidade WHERE cnpj= :cnpj;"""
+                    cursor.execute(update, {"cidade": alterarCidade,
+                                            "cnpj": alterarCnpj})
+                    bancoDados.commit()
+                    alterado()
+                elif opcao == 5:
+                    alterarCep = input("\033[1;34mCEP:\033[m ")
+                    alterarCnpj = int(input("\033[34mCNPJ:\033[m "))
+                    update = """UPDATE hospital SET cep= :cep WHERE cnpj= :cnpj;"""
+                    cursor.execute(update, {"cep": alterarCep,
+                                            "cnpj": alterarCnpj})
+                    bancoDados.commit()
+                    alterado()
+                else:
+                    print("\n\033[31mERRO! OPÇÃO INVÁLIDA...\033[m\n")
+                    linha()
+            elif opcao == 2:
+                cabecalho("ALTERAÇÃO")
+                menu(["NOME", "RUA", "BAIRRO", "CIDADE", "CEP"])
+                opcao = int(input("DIGITE SUA ESCOLHA: "))
+                if opcao == 1:
+                    alterarNome = input("\033[1;34mNOME:\033[m ")
+                    alterarCrm = int(input("\033[34mCRM:\033[m"))
+                    update = """UPDATE medico SET nome= :nome WHERE crm= :crm;"""
+                    cursor.execute(update, {"nome": alterarNome,
+                                            "crm": alterarCrm})
+                    bancoDados.commit()
+                    alterado()
+                elif opcao == 2:
+                    alterarRua = input("\033[1;34mRUA:\033[m ")
+                    alterarCrm = int(input("\033[34mCRM:\033[m "))
+                    update = """UPDATE medico SET rua= :rua WHERE crm= :crm;"""
+                    cursor.execute(update, {"rua": alterarRua,
+                                            "crm": alterarCrm})
+                    bancoDados.commit()
+                    alterado()
+                elif opcao == 3:
+                    alterarBairro = input("\033[1;34mBAIRRO:\033[m ")
+                    alterarCrm = int(input("\033[34mCRM:\033[m "))
+                    update = """UPDATE medico SET bairro= :bairro WHERE crm= :crm;"""
+                    cursor.execute(update, {"bairro": alterarBairro,
+                                            "crm": alterarCrm})
+                    bancoDados.commit()
+                    alterado()
+                elif opcao == 4:
+                    alterarCidade = input("\033[1;34mCIDADE:\033[m ")
+                    alterarCrm = int(input("\033[34mCRM:\033[m "))
+                    update = """UPDATE medico SET cidade= :cidade WHERE crm= :crm;"""
+                    cursor.execute(update, {"cidade": alterarCidade,
+                                            "crm": alterarCrm})
+                    bancoDados.commit()
+                    alterado()
+                elif opcao == 5:
+                    alterarCep = input("\033[1;34mCEP:\033[m ")
+                    alterarCrm = int(input("\033[34mCRM:\033[m "))
+                    update = """UPDATE medico SET cep= :cep WHERE crm= :crm;"""
+                    cursor.execute(update, {"cep": alterarCep,
+                                            "crm": alterarCrm})
+                    bancoDados.commit()
+                    alterado()
+                else:
+                    print("\n\033[31mERRO! OPÇÃO INVÁLIDA...\033[m\n")
+                    linha()                    
         elif opcao == 6:
             cabecalho("RELATÓRIOS")
             menu(["HOSPITAIS", "MÉDICOS", "PACIENTES", "TRATAMENTO"])
@@ -179,7 +274,7 @@ while True:
                     print(f"CNPJ: {lista[0]} \nNOME: {lista[1]} \nRUA: {lista[2]} \nBAIRRO: {lista[3]} \nCIDADE: {lista[4]} \nCEP: {lista[5]}")
                     linha()
 
-            elif opcao == 2: #listar médicos e seus telefones
+            elif opcao == 2: #listar médicos, seus telefones e especialidade.
                 cabecalho("RELATÓRIOS")
                 relatorioMedico = """SELECT * FROM medico md
                                     LEFT JOIN telefone tl
