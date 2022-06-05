@@ -44,7 +44,7 @@ try:
                     cep VARCHAR(8),
                     PRIMARY KEY(coren)
                 );
-                    CREATE TABLE paciente(
+                CREATE TABLE paciente(
                     cpfPaciente VARCHAR(11) NOT NULL,
                     rg VARCHAR(10) NOT NULL,
                     nome VARCHAR(50) NOT NULL,
@@ -54,15 +54,15 @@ try:
                     cep VARCHAR(8) NOT NULL,
                     PRIMARY KEY(cpfPaciente)
                 );
-                    CREATE TABLE especialidade(
-                        idEspecialidade INTEGER NOT NULL,
-                        especialidade TEXT NOT NULL,
-                        medico_crm INTEGER NOT NULL,
-                        PRIMARY KEY(idEspecialidade AUTOINCREMENT),
-                        FOREIGN KEY(medico_crm)
-                            REFERENCES medico(crm)
+                CREATE TABLE especialidade(
+                    idEspecialidade INTEGER NOT NULL,
+                    especialidade TEXT NOT NULL,
+                    medico_crm INTEGER NOT NULL,
+                    PRIMARY KEY(idEspecialidade AUTOINCREMENT),
+                    FOREIGN KEY(medico_crm)
+                        REFERENCES medico(crm)
                 );
-                    CREATE TABLE tratamento(
+                CREATE TABLE tratamento(
                     cod_tratamento INTEGER NOT NULL,
                     nomeTratamento VARCHAR(20),
                     crm VARCHAR(10),
@@ -70,7 +70,7 @@ try:
                     FOREIGN KEY(crm)
                         REFERENCES medico(crm)
                 );
-                    CREATE TABLE hospitalMedico(
+                CREATE TABLE hospitalMedico(
                     idHospMed INTEGER NOT NULL,
                     cnpj VARCHAR(11) NOT NULL,
                     medico_crm INTEGER NOT NULL,

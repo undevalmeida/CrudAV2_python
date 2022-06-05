@@ -71,47 +71,47 @@ while True:
             except:
                 print("\n\033[1;31mNÃO FOI POSSÍVEL ATRIBUIR, POR FAVOR, FAZER NOVAMENTE.\033[m")           
         elif opcao == 2:
-            # try:
-            crm = int(input("\033[1;34mCRM:\033[m "))
-            cpfMedico = int(input("\033[1;34mCPF:\033[m "))
-            espec = input("\033[1;34mESPECIALIDADE:\033[m ")
-            endereco()
-            contato1 = input("\033[1;34mCONTATO 1:\033[m ")
-            contato2 = input("\033[1;34mCONTATO 2:\033[m ")
+            try:
+                crm = int(input("\033[1;34mCRM:\033[m "))
+                cpfMedico = int(input("\033[1;34mCPF:\033[m "))
+                espec = input("\033[1;34mESPECIALIDADE:\033[m ")
+                endereco()
+                contato1 = input("\033[1;34mCONTATO 1:\033[m ")
+                contato2 = input("\033[1;34mCONTATO 2:\033[m ")
 
-            cnpj = int(input("\033[1;34mCNPJ 1º hospital:\033[m"))
-            
-            insertMedico = """INSERT INTO medico(crm, cpfMedico, nome, rua, bairro, cidade, cep)
-                            VALUES(:crm, :cpfMedico, :nome, :rua, :bairro, :cidade, :cep);"""
-            insertContatoMedico = """INSERT INTO telefone(contato1, contato2, crm)
-                                    VALUES(:contato1, :contato2, :crm);"""
-            insertHospMed = """INSERT INTO hospitalMedico(cnpj, medico_crm)
-                            VALUES(:cnpj, :medico_crm);"""
-            insertEspecilidade = """INSERT INTO especialidade(especialidade, medico_crm)
-                                VALUES(:especialidade, :medico_crm);"""
-            
-            med = medico(crm, cpfMedico, nome, rua, bairro, cidade, cep)
-            telMed = telefone(contato1, contato2, crm)
-            hospMed = hospitalMedico(cnpj, crm)
-            especialidade_ = especialidade(espec, crm)
-            cursor.execute(insertMedico, {"crm": med.crm,
-                                        "cpfMedico": med.cpfMedico,
-                                        "nome": med.nome,
-                                        "rua": med.rua,
-                                        "bairro": med.bairro,
-                                        "cidade": med.cidade,
-                                        "cep": med.cep})
-            cursor.execute(insertContatoMedico, {"contato1": telMed.contato1,
-                                                "contato2": telMed.contato2,
-                                                "crm": telMed.crm})
-            cursor.execute(insertHospMed, {"cnpj": hospMed.cnpj,
-                                        "medico_crm": hospMed.crm})
-            cursor.execute(insertEspecilidade, {"especialidade": especialidade_.especialidade,
-                                                "medico_crm": especialidade_.crm})
-            bancoDados.commit()
-            cadastrado()
-            # except:
-            #     print(f"\n\033[1;31mNÃO FOI POSSÍVEl, CONFIRME O QUE FOI DIGITADO E TENTE NOVAMENTE.\033[m")
+                cnpj = int(input("\033[1;34mCNPJ 1º hospital:\033[m"))
+                
+                insertMedico = """INSERT INTO medico(crm, cpfMedico, nome, rua, bairro, cidade, cep)
+                                VALUES(:crm, :cpfMedico, :nome, :rua, :bairro, :cidade, :cep);"""
+                insertContatoMedico = """INSERT INTO telefone(contato1, contato2, crm)
+                                        VALUES(:contato1, :contato2, :crm);"""
+                insertHospMed = """INSERT INTO hospitalMedico(cnpj, medico_crm)
+                                VALUES(:cnpj, :medico_crm);"""
+                insertEspecilidade = """INSERT INTO especialidade(especialidade, medico_crm)
+                                    VALUES(:especialidade, :medico_crm);"""
+                
+                med = medico(crm, cpfMedico, nome, rua, bairro, cidade, cep)
+                telMed = telefone(contato1, contato2, crm)
+                hospMed = hospitalMedico(cnpj, crm)
+                especialidade_ = especialidade(espec, crm)
+                cursor.execute(insertMedico, {"crm": med.crm,
+                                            "cpfMedico": med.cpfMedico,
+                                            "nome": med.nome,
+                                            "rua": med.rua,
+                                            "bairro": med.bairro,
+                                            "cidade": med.cidade,
+                                            "cep": med.cep})
+                cursor.execute(insertContatoMedico, {"contato1": telMed.contato1,
+                                                    "contato2": telMed.contato2,
+                                                    "crm": telMed.crm})
+                cursor.execute(insertHospMed, {"cnpj": hospMed.cnpj,
+                                            "medico_crm": hospMed.crm})
+                cursor.execute(insertEspecilidade, {"especialidade": especialidade_.especialidade,
+                                                    "medico_crm": especialidade_.crm})
+                bancoDados.commit()
+                cadastrado()
+            except:
+                print(f"\n\033[1;31mNÃO FOI POSSÍVEl, CONFIRME O QUE FOI DIGITADO E TENTE NOVAMENTE.\033[m")
         elif opcao == 3:
             try:
                 coren = int(input("\033[1;34mCOREM:\033[m "))
