@@ -93,7 +93,7 @@ while True:
                 med = medico(crm, cpfMedico, especialidade, nome, rua, bairro, cidade, cep)
                 telMed = telefone(contato1, contato2, crm)
                 hospMed = hospitalMedico(cnpj, crm)
-                espec = especialidade(especialidade, medico_crm)
+                espec = especialidade(especialidade, crm)
                 cursor.execute(insertMedico, {"crm": med.crm,
                                             "cpfMedico": med.cpfMedico,
                                             "especialidade": med.especialidade,
