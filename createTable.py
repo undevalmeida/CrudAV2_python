@@ -23,7 +23,6 @@ try:
                     bairro VARCHAR(20) NOT NULL,
                     cidade VARCHAR(20),
                     cep VARCHAR(8) NOT NULL,
-                    especialidade TEXT NOT NULL,
                     PRIMARY KEY(crm)
                 );
                 CREATE TABLE telefone(
@@ -59,7 +58,7 @@ try:
                         idEspecialidade INTEGER NOT NULL,
                         especilidade TEXT NOT NULL,
                         medico_crm INTEGER NOT NULL,
-                        PRIMARY KEY(idEspecilidade),
+                        PRIMARY KEY(idEspecialidade AUTOINCREMENT),
                         FOREIGN KEY(medico_crm)
                             REFERENCES medico(crm)
                 );

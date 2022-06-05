@@ -74,15 +74,15 @@ while True:
             try:
                 crm = int(input("\033[1;34mCRM:\033[m "))
                 cpfMedico = int(input("\033[1;34mCPF:\033[m "))
-                especialidade = input("\033[1;34mESPECIALIDADE:\033[m ")
+                espec = input("\033[1;34mESPECIALIDADE:\033[m ")
                 endereco()
                 contato1 = input("\033[1;34mCONTATO 1:\033[m ")
                 contato2 = input("\033[1;34mCONTATO 2:\033[m ")
 
                 cnpj = int(input("\033[1;34mCNPJ 1º hospital:\033[m"))
                 
-                insertMedico = """INSERT INTO medico(crm, cpfMedico, especialidade, nome, rua, bairro, cidade, cep)
-                                VALUES(:crm, :cpfMedico, :especialidade, :nome, :rua, :bairro, :cidade, :cep);"""
+                insertMedico = """INSERT INTO medico(crm, cpfMedico, nome, rua, bairro, cidade, cep)
+                                VALUES(:crm, :cpfMedico, :nome, :rua, :bairro, :cidade, :cep);"""
                 insertContatoMedico = """INSERT INTO telefone(contato1, contato2, crm)
                                         VALUES(:contato1, :contato2, :crm);"""
                 insertHospMed = """INSERT INTO hospitalMedico(cnpj, medico_crm)
@@ -90,13 +90,12 @@ while True:
                 insertEspecilidade = """INSERT INTO especialidade(especialidade, medico_crm)
                                     VALUES(:especialidade, :medico_crm);"""
                 
-                med = medico(crm, cpfMedico, especialidade, nome, rua, bairro, cidade, cep)
+                med = medico(crm, cpfMedico, espec, nome, rua, bairro, cidade, cep)
                 telMed = telefone(contato1, contato2, crm)
                 hospMed = hospitalMedico(cnpj, crm)
-                espec = especialidade(especialidade, crm)
+                especialidade_ = especialidade(espec, crm)
                 cursor.execute(insertMedico, {"crm": med.crm,
                                             "cpfMedico": med.cpfMedico,
-                                            "especialidade": med.especialidade,
                                             "nome": med.nome,
                                             "rua": med.rua,
                                             "bairro": med.bairro,
@@ -107,8 +106,8 @@ while True:
                                                     "crm": telMed.crm})
                 cursor.execute(insertHospMed, {"cnpj": hospMed.cnpj,
                                             "medico_crm": hospMed.crm})
-                cursor.execute(insertEspecilidade, {"especialidade": espec.especialidade,
-                                                    "medico_crm": espec.crm})
+                cursor.execute(insertEspecilidade, {"especialidade": especialidade_.especialidade,
+                                                    "medico_crm": especialidade_.crm})
                 bancoDados.commit()
                 cadastrado()
             except:
