@@ -55,6 +55,14 @@ try:
                     cep VARCHAR(8) NOT NULL,
                     PRIMARY KEY(cpfPaciente)
                 );
+                    CREATE TABLE especilidade(
+                        idEspecialidade INTEGER NOT NULL,
+                        especilidade TEXT NOT NULL,
+                        medico_crm INTEGER NOT NULL,
+                        PRIMARY KEY(idEspecilidade),
+                        FOREIGN KEY(medico_crm)
+                            REFERENCES medico(crm)
+                );
                     CREATE TABLE tratamento(
                     cod_tratamento INTEGER NOT NULL,
                     nomeTratamento VARCHAR(20),

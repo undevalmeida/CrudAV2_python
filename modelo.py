@@ -47,3 +47,7 @@ class hospitalMedico:
     def __init__(self, cnpj, crm):
         self.cnpj = cnpj
         self.crm = crm
+class especialidade:
+    def __int__(self, especialidade, crm):
+        self.especialidade = especialidade
+        self.crm = crm

@@ -24,7 +24,7 @@ def menu(listOpcoes):
     linha()
 
 cabecalho("CADASTRO")
-menu(["HOSPITAL", "MÉDICO", "ENFERMEIRA", "PACIENTE","\033[35mRELATÓRIO\033[m", "SAIR"])
+menu(["HOSPITAL", "MÉDICO", "ENFERMEIRA", "PACIENTE", "ALTERAR", "\033[35mRELATÓRIO\033[m", "SAIR"])
 
 
 def endereco():
@@ -87,10 +87,13 @@ while True:
                                         VALUES(:contato1, :contato2, :crm);"""
                 insertHospMed = """INSERT INTO hospitalMedico(cnpj, medico_crm)
                                 VALUES(:cnpj, :medico_crm);"""
+                insertEspecilidade = """INSERT INTO especialidade(especialidade, medico_crm)
+                                    VALUES(:especialidade, :medico_crm"""!
                 
                 med = medico(crm, cpfMedico, especialidade, nome, rua, bairro, cidade, cep)
                 telMed = telefone(contato1, contato2, crm)
                 hospMed = hospitalMedico(cnpj, crm)
+                espec = especialidade(especialidade, medico_crm)
                 cursor.execute(insertMedico, {"crm": med.crm,
                                             "cpfMedico": med.cpfMedico,
                                             "especialidade": med.especialidade,
@@ -106,8 +109,8 @@ while True:
                                             "medico_crm": hospMed.crm})
                 bancoDados.commit()
                 cadastrado()
-            except Error as erro:
-                print(f"\n\033[1;31mNÃO FOI POSSÍVEl, POR FAVOR, FAZER NOVAMENTE. ERRO: {erro}\033[m")
+            except:
+                print(f"\n\033[1;31mNÃO FOI POSSÍVEl, CONFIRME O QUE FOI DIGITADO E TENTE NOVAMENTE.\033[m")
         elif opcao == 3:
             try:
                 coren = int(input("\033[1;34mCOREM:\033[m "))
@@ -154,8 +157,12 @@ while True:
             "crm": tratament.crmMedico})
             bancoDados.commit()
             cadastrado()
-
         elif opcao == 5:
+            cabecalho("ALTERAÇÃO")
+            menu(["HOSPITAIS", "MÉDICOS", "PACIENTES", "TRATAMENTO"])
+            opcao = int(input("DIGITE SUA ESCOLHA: "))
+            print("A fazer")
+        elif opcao == 6:
             cabecalho("RELATÓRIOS")
             menu(["HOSPITAIS", "MÉDICOS", "PACIENTES", "TRATAMENTO"])
             opcao = int(input("DIGITE SUA ESCOLHA: "))
@@ -207,7 +214,7 @@ while True:
                 for lista in listaPacienteTratamento:
                     print(f"CÓDIGO: {lista[0]} \nTRATAMENTO: {lista[1]} \nCRM DO MEDICO: {lista[2]}")
                     linha()
-        elif opcao == 6:
+        elif opcao == 7:
             print("\n\033[1;31mSISTEMA ESTÁ SENDO ENCERRADO... ATÉ MAIS!\033[m\n")
             linha()
             break
@@ -223,7 +230,7 @@ while True:
         break
     else: 
         cabecalho("CADASTRO")
-        menu(["HOSPITAL", "MÉDICO", "ENFERMEIRA", "PACIENTE", "\033[35mRELATÓRIO\033[m", "SAIR"])
+        menu(["HOSPITAL", "MÉDICO", "ENFERMEIRA", "PACIENTE", "ALTERAR", "\033[35mRELATÓRIO\033[m", "SAIR"])
 
 # cursor.close()
 # bancoDados.close()
