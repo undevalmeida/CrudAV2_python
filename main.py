@@ -24,7 +24,7 @@ def menu(listOpcoes):
     linha()
 
 cabecalho("CADASTRO")
-menu(["HOSPITAL", "MÉDICO", "ENFERMEIRA", "PACIENTE", "ALTERAR", "\033[35mRELATÓRIO\033[m", "SAIR"])
+menu(["HOSPITAL", "MÉDICO", "ENFERMEIRA", "PACIENTE", "ALTERAR", "\033[31mDELETAR\033[m", "\033[35mRELATÓRIO\033[m", "SAIR"])
 
 
 def endereco():
@@ -356,6 +356,9 @@ while True:
                 print("\n\033[31mERRO! OPÇÃO INVÁLIDA...\033[m\n")
                 linha()
         elif opcao == 6:
+            cabecalho("DELETAR")
+            menu([""])
+        elif opcao == 7:
             cabecalho("RELATÓRIOS")
             menu(["HOSPITAIS", "MÉDICOS", "PACIENTES", "TRATAMENTO"])
             opcao = int(input("DIGITE SUA ESCOLHA: "))
@@ -409,7 +412,7 @@ while True:
                 for lista in listaPacienteTratamento:
                     print(f"CÓDIGO: {lista[0]} \nTRATAMENTO: {lista[1]} \nCRM DO MEDICO: {lista[2]}")
                     linha()
-        elif opcao == 7:
+        elif opcao == 8:
             print("\n\033[1;31mSISTEMA ESTÁ SENDO ENCERRADO... ATÉ MAIS!\033[m\n")
             linha()
             break
@@ -425,7 +428,7 @@ while True:
         break
     else: 
         cabecalho("CADASTRO")
-        menu(["HOSPITAL", "MÉDICO", "ENFERMEIRA", "PACIENTE", "ALTERAR", "\033[35mRELATÓRIO\033[m", "SAIR"])
+        menu(["HOSPITAL", "MÉDICO", "ENFERMEIRA", "PACIENTE", "ALTERAR", "\033[31mDELETAR\033[m", "\033[35mRELATÓRIO\033[m", "SAIR"])
 
 # cursor.close()
 # bancoDados.close()
