@@ -54,9 +54,9 @@ try:
                     cep VARCHAR(8) NOT NULL,
                     PRIMARY KEY(cpfPaciente)
                 );
-                    CREATE TABLE especilidade(
+                    CREATE TABLE especialidade(
                         idEspecialidade INTEGER NOT NULL,
-                        especilidade TEXT NOT NULL,
+                        especialidade TEXT NOT NULL,
                         medico_crm INTEGER NOT NULL,
                         PRIMARY KEY(idEspecialidade AUTOINCREMENT),
                         FOREIGN KEY(medico_crm)
